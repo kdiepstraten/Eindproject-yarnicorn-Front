@@ -1,0 +1,12 @@
+.home-link {
+    margin-left: 480px;
+    color: ghostwhite;
+    text-decoration: none;
+}
+.link {
+    color: ghostwhite;
+    text-decoration: none;
+}
+.link:hover {
+    color: blanchedalmond;
+}

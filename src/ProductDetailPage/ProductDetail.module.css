@@ -1,0 +1,67 @@
+.background {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width:100%;
+    height: 100%;
+}
+.header{
+    width: 100%;
+    height: 30em;
+    background-image: url("../assets/ProductDetail/de-katoenen-draden-voor-garen-van-verschillende-kleuren-als-achtergrond.jpg");
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 50px;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.container__left {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 600px;
+    margin: 0 75px 0 50px;
+}
+.container__img {
+    width: 300px;
+    height: 400px;
+}
+.container__img img {
+    width: 100%;
+}
+.container__info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 100px;
+}
+.container__right {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 600px;
+    margin: 0 50px 0 75px;
+}
+.container__right p {
+    margin: 15px 0;
+}
+.btn {
+    background-color: transparent;
+    border: none;
+    color: ghostwhite;
+    /*width: 20px;*/
+    height: 30px;
+    font-size: 28px;
+    text-decoration: underline;
+    margin-top: 100px;
+    cursor: pointer;
+    text-align: start;
+}

@@ -1,0 +1,24 @@
+
+.navigation {
+    height: 30px;
+    margin: 10px;
+}
+
+.active {
+    border-bottom: 2px dashed hsl(36, 100%, 70%);
+    color: hsl(36, 100%, 92%);
+    text-decoration: none;
+}
+.default {
+    color: ghostwhite;
+    text-decoration: none;
+}
+li {
+    margin: 0 10px;
+    list-style: none;
+}
+ul {
+    display: flex;
+    flex-direction: row;
+}
+

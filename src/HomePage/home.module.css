@@ -1,0 +1,79 @@
+html {
+    background: var(--background_home);
+    color: ghostwhite;
+}
+.introduction-text-container {
+    width: calc( 100vw - 100px);
+    height: 200px;
+    margin: 10px;
+}
+.introduction-text_1 {
+    margin: 10px 0;
+}
+.introduction-text_2 {
+    margin: 10px 0;
+}
+.introduction-image-1 {
+    width: 100vw;
+    height: 800px;
+    margin: 10px;
+}
+.introduction-image-2 {
+    width: 100vw;
+    height: 800px;
+    margin: 10px;
+}
+img {
+    width: 100%;
+    height: 100%;
+}
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 20px;
+}
+.categorie:hover {
+    cursor: pointer;
+}
+.categorie {
+    width: 380px;
+    height: 350px;
+    border-radius: 20px;
+    border: 2px solid black;
+    margin: 10px;
+}
+.sheep {
+    background-image: url("../assets/Catagorie/Sheep/cute-lamb-grazing-enjoying-springtime-meadow-generated-by-ai.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.alpaca {
+    background-image: url("../assets/Catagorie/Alpaca/llama-with-fluffy-head-black-background (1).jpg");
+    background-size: cover;
+    background-position: center;
+}
+.yak {
+    background-image: url("../assets/Catagorie/Yak/animal-portrait-close-up.jpg");
+    background-size: cover;
+    background-position: center;
+}
+.cotton {
+    background-image: url("../assets/Catagorie/Cotton/cotton-is-vase-cotton-is-bloom (1).jpg");
+    background-size: cover;
+    background-position: center;
+}
+.plant {
+    background-image: url("../assets/Catagorie/Plant/spikes-ripe-wheat-farmers-field-ai-generated-image (1).jpg");
+    background-size: cover;
+    background-position: center;
+}
+.exotic {
+    background-image: url("../assets/Catagorie/Exotic/fluffy-small-mammal-with-black-fur-looking-cute-generated-by-ai.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
