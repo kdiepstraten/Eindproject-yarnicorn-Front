@@ -5,7 +5,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 
 function Products({image}) {
-    const [wool, setWool] = useState([]);
+    const [product, setProduct] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
@@ -19,7 +19,7 @@ function Products({image}) {
         toggleLoading(true);
         try {
             const response = await axios.get("http://localhost:8080/product");
-            setWool(response.data);
+            setProduct(response.data);
             console.log(response.data)
         } catch (e) {
             console.error(e);
@@ -30,14 +30,14 @@ function Products({image}) {
 
     return (
         <>
-            {wool.map((wool) => (
-            <div className={style["products__container"]} key={wool.id}>
+            {product.map((product) => (
+            <div className={style["products__container"]} key={product.id}>
                 <figure className={style["products__figure"]}>
-                    <img src={image} alt={wool.name}/>
+                    <img src={image} alt={product.name}/>
                 </figure>
-                <p>{wool.name}</p>
-                <p>{wool.blend}</p>
-                <p>{wool.color}</p>
+                <p>{product.name}</p>
+                <p>{product.blend}</p>
+                <p>{product.color}</p>
                 <NavLink className={style.link} to="/products-detail">More info</NavLink>
                 </div>
             ))}
