@@ -17,9 +17,9 @@ function Review(){
 
                 <input
                     type="text"
-                    name="fullname"
+                    name="fullName"
                     placeholder="Full name"
-                    {...register("fullname", {
+                    {...register("fullName", {
                         required: {
                             value: true,
                             message: "Name is required"

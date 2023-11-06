@@ -70,7 +70,7 @@ function Registration() {
                             className={style.input}
                             type="password"
                             id="password"
-                            placeholder="Password"
+                            placeholder="Password (min 8 characters"
                             {...register("password", {
                                 required: {
                                     value: true,

@@ -25,13 +25,13 @@ function Login() {
 
                         <input
                             className={style.input}
-                            type="email"
-                            id="email"
-                            placeholder="Email"
-                            {...register("email", {
+                            type="text"
+                            id="username"
+                            placeholder="Username"
+                            {...register("username", {
                                 required: {
                                     value: true,
-                                    message: "An email adress is required",
+                                    message: "An username is required",
                                 },
                                 validate: (value) => value.includes('@') || "Email requires an @ "
                             })}

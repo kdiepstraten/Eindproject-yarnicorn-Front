@@ -10,15 +10,15 @@ function Products({image}) {
     const [loading, toggleLoading] = useState(false);
 
     useEffect(() => {
-        void fetchWool();
+        void fetchProduct();
     }, []);
 
 
-    async function fetchWool() {
+    async function fetchProduct() {
         toggleError(false);
         toggleLoading(true);
         try {
-            const response = await axios.get("http://localhost:8080/wools");
+            const response = await axios.get("http://localhost:8080/product");
             setWool(response.data);
             console.log(response.data)
         } catch (e) {
