@@ -5,7 +5,13 @@ import hands_2 from "../assets/Home/one-woman-knitting-wool-sweater-generated-by
 import Categories from "./Categories.jsx";
 import PostReview from "./PostReview.jsx";
 import Navigation from "../NavbarPage/Navigation.jsx";
+import GetReview from "./GetReview.jsx";
+import {useEffect} from "react";
+import getReview from "./GetReview.jsx";
 function Home(){
+    useEffect(() => {
+        void getReview;
+    }, []);
     return(
         <>
             <Navigation/>
@@ -14,10 +20,11 @@ function Home(){
                 alt_1="Woman knitting a scarf"
                 image_2={hands_2}
                 alt_2="woman setting up stitches"
-                text_1=" Stap binnen in de betoverende wereld van wol en garen, waar ambacij [Jouw Website Naam] geloven we in de magie van garen - het eeuwenoude ambacht dat generaties heeft verbonden en verhalen heeft geweven in elke steek."
-                text_2="Of je nu een doorgewinterde breier bent, een gepassioneerde haker, een textielkunstenaar in de maak of gewoon nieuwsgierig bent nht en creativiteit samenkomen om prachtige en warme meesterwerken te creëren. Baar de wereld van vezelkunst, hier vind je een schat aan inspiratie, kennis en hoogwaardige materialen om je projecten tot leven te brengen."
+                text_1="Betreed de magische wereld van wol en garen bij Yarnicorn. Wij geloven in de wonderen van garen, een eeuwenoud ambacht dat generaties heeft samengebracht en verhalen heeft geweven in elke steek."
+                text_2="Of je nu een ervaren breister, een enthousiaste haakster, een opkomend textielkunstenaar bent, of gewoon nieuwsgierig naar waar creativiteit en vakmanschap samenkomen om prachtige en warme meesterwerken te creëren, hier, in de wereld van vezelkunst, zul je een schat aan inspiratie, kennis en hoogwaardige materialen ontdekken om je projecten tot leven te brengen."
                 />
             <Categories/>
+            <GetReview/>
             <PostReview/>
         </>
     )

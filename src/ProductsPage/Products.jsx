@@ -10,7 +10,7 @@ function Products({image}) {
     const [loading, toggleLoading] = useState(false);
 
     useEffect(() => {
-        void fetchProduct();
+        void fetchProduct;
     }, []);
 
 
@@ -18,7 +18,7 @@ function Products({image}) {
         toggleError(false);
         toggleLoading(true);
         try {
-            const response = await axios.get("http://localhost:8080/product");
+            const response = await axios.get('http://localhost:8080/product');
             setProduct(response.data);
             console.log(response.data)
         } catch (e) {

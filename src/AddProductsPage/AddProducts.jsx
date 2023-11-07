@@ -9,28 +9,23 @@ function AddProducts() {
 
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
-    const [wool, setWool] = useState('');
-    const [error, toggleError] = useState(false);
-    const [loading, toggleLoading] = useState(false);
+
 
     function handleFormSubmit(data) {
         console.log(data);
-        navigate("/products")
-        void postWool();
+        // navigate("/products")
+        void postProduct;
     }
 
-    async function postWool() {
-        toggleError(false);
-        toggleLoading(true);
+    async function postProduct(data) {
+
         try {
-            const response = await axios.post("http://localhost:8080/wools");
-            setWool(response.data);
-            console.log(response.data)
+            const response = await axios.post('http://localhost:8080/product', data);
+             console.log(response.data)
         } catch (e) {
             console.error(e);
-            toggleError(true);
         }
-        toggleLoading(false)
+
     }
 
     return (
@@ -122,10 +117,10 @@ function AddProducts() {
                         <div className={style.flex}>
                             <input
                                 className={style.input}
-                                type="text"
-                                id="needle-size"
+                                type="number"
+                                id="needleSize"
                                 placeholder="Needle Size"
-                                {...register("needle-size", {
+                                {...register("needleSize", {
                                     required: {
                                         value: true,
                                         message: "Needle size is required"
@@ -135,7 +130,7 @@ function AddProducts() {
 
                             <input
                                 className={style.input}
-                                type="text"
+                                type="number"
                                 id="length"
                                 placeholder="Length"
                                 {...register("length", {
@@ -159,15 +154,16 @@ function AddProducts() {
                             })}
                         />
                         {/*TODO: form maken voor image. Functie schrijven om die naar een ander endpoint te sturen.*/}
-                        <input
-                            className={style.input}
-                            type="file"
-                            name="image"
-                            accept="image/*"
-                            id="image"
-                            placeholder="Image"
-                            {...register("image")}
-                        />
+                        {/*<input*/}
+                        {/*    className={style.input}*/}
+                        {/*    type="file"*/}
+                        {/*    name="image"*/}
+                        {/*    accept="image/*"*/}
+                        {/*    id="image"*/}
+                        {/*    placeholder="Image"*/}
+                        {/*    {...register("image")}*/}
+                        {/*/>*/}
+
                         <button
                             type="submit"
                             className={style.btn}>Submit

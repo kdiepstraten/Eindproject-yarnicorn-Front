@@ -40,6 +40,7 @@ function ProductDetail() {
                     needlesize="4mm"
                     length="150m"
                     gauge="10 x 10 = 17 st x 22 rows"
+                    productId={productId}
                     />
             </div>
 

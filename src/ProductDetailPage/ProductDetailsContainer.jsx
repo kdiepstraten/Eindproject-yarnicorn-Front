@@ -1,6 +1,6 @@
 import style from "./ProductDetail.module.css"
 import {useNavigate} from "react-router-dom";
-function ProductDetailsContainer({image, image_text, description, name, brand, color, blend, needlesize, length, gauge}){
+function ProductDetailsContainer({image, image_text, description, name, brand, color, blend, needlesize, length, gauge, productId}){
     const navigate = useNavigate();
 
     function onClick(){
@@ -16,6 +16,7 @@ function ProductDetailsContainer({image, image_text, description, name, brand, c
                     <div className={style["container__info"]}>{description}</div>
                 </div>
                 <div className={style["container__right"]}>
+                    <p>Product ID: {productId}</p>
                     <p>Name: {name}</p>
                     <p>Brand: {brand}</p>
                     <p>Color: {color}</p>
@@ -23,6 +24,7 @@ function ProductDetailsContainer({image, image_text, description, name, brand, c
                     <p>Needlesize: {needlesize}</p>
                     <p>Length: {length}</p>
                     <p>Gauge: {gauge}</p>
+
                     <button type="button" onClick={onClick} className={style.btn}>Reserve</button>
                 </div>
             </div>

@@ -29,51 +29,7 @@ function ProductsPage() {
                     <Products
                         image={isager1}
                     />
-                    {/*<Products*/}
-                    {/*    image={isager2}*/}
-                    {/*    />*/}
-                    {/*<Products*/}
-                    {/*    image={isager1}*/}
-                    {/*    image__text={wool[0].name}*/}
-                    {/*    name={wool[0].name}*/}
-                    {/*    blend={wool[0].blend}*/}
-                    {/*    color={wool[0].color}*/}
-                    {/*/>*/}
-                    {/*<Products*/}
-                    {/*    image={isager2}*/}
-                    {/*    image__text="Isager eco soft"*/}
-                    {/*    name="Isager eco soft"*/}
-                    {/*    blend=" Alpaca 50%, Cotton 48 %, nylon 2%"*/}
-                    {/*    color="Beige"*/}
-                    {/*/>*/}
-                    {/*<Products*/}
-                    {/*    image={isager3}*/}
-                    {/*    image__text="Isager eco soft"*/}
-                    {/*    name="Isager eco soft"*/}
-                    {/*    blend=" Alpaca 50%, Cotton 48 %, nylon 2%"*/}
-                    {/*    color="Grey"*/}
-                    {/*/>*/}
-                    {/*<Products*/}
-                    {/*    image={isager4}*/}
-                    {/*    image__text="Isager eco soft"*/}
-                    {/*    name="Isager eco soft"*/}
-                    {/*    blend=" Alpaca 50%, Cotton 48 %, nylon 2%"*/}
-                    {/*    color="Mauve"*/}
-                    {/*/>*/}
-                    {/*<Products*/}
-                    {/*    image={isager5}*/}
-                    {/*    image__text="Isager eco soft"*/}
-                    {/*    name="Isager eco soft"*/}
-                    {/*    blend=" Alpaca 50%, Cotton 48 %, nylon 2%"*/}
-                    {/*    color="Beige"*/}
-                    {/*/>*/}
-                    {/*<Products*/}
-                    {/*    image={isager6}*/}
-                    {/*    image__text="Isager eco soft"*/}
-                    {/*    name="Isager eco soft"*/}
-                    {/*    blend=" Alpaca 50%, Cotton 48 %, nylon 2%"*/}
-                    {/*    color="Grey"*/}
-                    {/*/>*/}
+
                 </div>
                 <Converter/>
             </div>

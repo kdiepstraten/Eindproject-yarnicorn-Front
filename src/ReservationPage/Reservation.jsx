@@ -2,6 +2,7 @@ import style from "./Reservation.module.css"
 import {useForm} from "react-hook-form";
 import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 
 function Reservation() {
@@ -9,10 +10,19 @@ function Reservation() {
     const navigate = useNavigate();
 
     function handleFormSubmit(data) {
+        void postReservation(data);
         console.log(data);
         navigate("/");
     }
 
+    async function postReservation(data) {
+        try {
+            const response = await axios.post('http://localhost:8080/reservation', data);
+            console.log(response.data)
+        } catch (e) {
+            console.error(e);
+        }
+    }
     return (
         <>
             <div className={style.background}>
@@ -111,6 +121,19 @@ function Reservation() {
                                 required: {
                                     value: true,
                                     message: "City is required"
+                                }
+                            })}
+                        />
+
+                        <input
+                            className={style.input}
+                            type="number"
+                            id="productid"
+                            placeholder="Procuct id"
+                            {...register("productId", {
+                                required: {
+                                    value: true,
+                                    message: "Product id is required"
                                 }
                             })}
                         />
