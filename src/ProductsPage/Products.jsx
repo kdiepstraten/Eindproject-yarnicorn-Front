@@ -10,7 +10,7 @@ function Products({image}) {
     const [loading, toggleLoading] = useState(false);
 
     useEffect(() => {
-        void fetchProduct;
+        void fetchProduct();
     }, []);
 
 
@@ -38,7 +38,7 @@ function Products({image}) {
                 <p>{product.name}</p>
                 <p>{product.blend}</p>
                 <p>{product.color}</p>
-                <NavLink className={style.link} to="/products-detail">More info</NavLink>
+                <NavLink className={style.link} to="/products/:productId">More info</NavLink>
                 </div>
             ))}
         </>

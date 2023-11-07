@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import style from "../HomePage/home.module.css";
@@ -7,6 +7,10 @@ import axios from "axios";
 function PostReview() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const [error, toggleError] = useState(false);
+
+    useEffect(() => {
+        void handleFormSubmit();
+    }, []);
 
     async function handleFormSubmit(data) {
         console.log(data)

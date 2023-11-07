@@ -9,9 +9,7 @@ import GetReview from "./GetReview.jsx";
 import {useEffect} from "react";
 import getReview from "./GetReview.jsx";
 function Home(){
-    useEffect(() => {
-        void getReview;
-    }, []);
+
     return(
         <>
             <Navigation/>
