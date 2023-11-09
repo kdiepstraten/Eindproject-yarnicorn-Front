@@ -2,15 +2,27 @@ import style from "./Registration.module.css"
 import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {useState} from "react";
 
 function Registration() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
-    function handleFormSubmit(data) {
-        console.log(data);
-        navigate("/login");
-    }
 
+    let userRole = ["USER"];
+
+    async function handleFormSubmit(data) {
+        console.log(data)
+        console.log(data.roles)
+        try {
+            const response   = await axios.post("http://localhost:8080/profile", data);
+            console.log(response.data);
+            navigate("/login");
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    //TODO: Error 500 na submit
     return (
         <>
             <div className={style.background}>
@@ -25,6 +37,32 @@ function Registration() {
                         <input
                             className={style.input}
                             type="text"
+                            id="username"
+                            placeholder="Username"
+                            {...register("username", {
+                                required: {
+                                    value: true,
+                                    message: "Username is required"
+                                }
+                            })}
+                        />
+
+                        <input
+                            className={style.input}
+                            type="password"
+                            id="password"
+                            placeholder="Password"
+                            {...register("password", {
+                                required: {
+                                    value: true,
+                                    message: "Password is required"
+                                }
+                            })}
+                        />
+
+                        <input
+                            className={style.input}
+                            type="text"
                             id="firstName"
                             placeholder="First name"
                             {...register("firstName", {
@@ -34,7 +72,6 @@ function Registration() {
                                 }
                             })}
                         />
-
 
                         <input
                             className={style.input}
@@ -50,7 +87,6 @@ function Registration() {
 
                         />
 
-
                         <input
                             className={style.input}
                             type="email"
@@ -65,42 +101,13 @@ function Registration() {
                             })}
                         />
 
-
-                        <input
-                            className={style.input}
-                            type="password"
-                            id="password"
-                            placeholder="Password (min 8 characters"
-                            {...register("password", {
-                                required: {
-                                    value: true,
-                                    message: "Password is required"
-                                }
-                            })}
-                        />
-
-
-                        <input
-                            className={style.input}
-                            type="password"
-                            id="confirmPassword"
-                            placeholder="Confirm password"
-                            {...register("confirmPassword", {
-                                required: {
-                                    value: true,
-                                    message: "Passwords needs to be the same"
-                                }
-                            })}
-                        />
-
                         <div className={style["radio-container"]}>
                         <div className={style.radio}>
                             <input
                                 type="radio"
                                 id="admin"
-                                name="role"
-                                value="admin"
-                                {...register("radio", {
+                                value='["ADMIN"]'
+                                {...register("roles", {
                                     required: {
                                         type: "radio",
                                         message: "One is required"
@@ -112,10 +119,10 @@ function Registration() {
                         <div className={style.radio}>
                             <input
                                 type="radio"
+
                                 id="user"
-                                name="role"
-                                value="user"
-                                {...register("radio", {
+                                value='["USER"]'
+                                {...register("roles", {
                                     required: {
                                         type: "radio",
                                         message: "One is required"
@@ -124,20 +131,6 @@ function Registration() {
                             />
                             <label className={style.label}>User</label>
                         </div>
-                        </div>
-
-                        <div className={style["checkbox-container"]}>
-                            <input
-                                type="checkbox"
-                                className="checkbox"
-                                {...register("radio", {
-                                    required: {
-                                        type: "checkbox",
-                                        message: "One is required"
-                                    }
-                                })}
-                            />
-                            <label className={style.label}>I agree with the terms.</label>
                         </div>
 
                         <button className={style.btn}

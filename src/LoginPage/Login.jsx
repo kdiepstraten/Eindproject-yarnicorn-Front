@@ -2,15 +2,23 @@ import style from "./Login.module.css"
 import {useForm} from 'react-hook-form';
 import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
-    function handleFormSubmit(data) {
-        console.log(data);
-        navigate("/products")
-    }
 
+    async function handleFormSubmit(data) {
+        console.log(data);
+        try {
+            const response = await axios.post("http://localhost:8080/auth", data);
+            console.log(response.data);
+            navigate("/products");
+        } catch (e) {
+            console.error(e);
+        }
+    }
+//TODO: handleFormSubmit aanpassen zodat de login button werkt.
     return (
         <>
             <div className={style.background}>
@@ -32,8 +40,7 @@ function Login() {
                                 required: {
                                     value: true,
                                     message: "An username is required",
-                                },
-                                validate: (value) => value.includes('@') || "Email requires an @ "
+                                }
                             })}
                         />
                         {errors.name && <p>{errors.name.message}</p>}

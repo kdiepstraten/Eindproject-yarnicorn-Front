@@ -1,21 +1,58 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import style from "../HomePage/home.module.css";
+import axios from "axios";
 
-function Review(){
+function Review() {
+    const[review, toggleReview] = useState(false);
+    const[data, setData] = useState([]);
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const[star, setStar] = useState();
+    const [error, toggleError] = useState(false);
 
-    function handleFormSubmit(data, e) {
-        console.log(data);
-        e.preventDefault()
+    useEffect(() => {
+        void getReviews()
+    }, [review]);
+
+    async function handleFormSubmit(data) {
+
+        try {
+            const response = await axios.post('http://localhost:8080/review', data
+//TODO: useContext toevoegen voor toegang tot de back.
+            );
+            console.log(response.data);
+            toggleReview(!review)
+        } catch (e) {
+            console.error(e);
+            toggleError(true);
+        }
+
     }
-    return(
+
+    async function getReviews() {
+        try {
+            const response = await axios.get('http://localhost:8080/review')
+            setData(response.data);
+            // console.log(response.data);
+        } catch (e) {
+            console.error(e);
+            toggleError(true);
+        }
+    }
+
+    return (
         <>
             <form onSubmit={handleSubmit(handleFormSubmit)}>
 
+                {data.map((review) => (
+                    <div className={style["review-box"]} key={review.id}>
+                        <h2>{review.fullName}</h2>
+                        <p>{review.review}</p>
+                    </div>
+                ))}
+
                 <input
+                    className={style.input}
                     type="text"
                     name="fullName"
                     placeholder="Full name"
@@ -28,82 +65,23 @@ function Review(){
                 />
 
                 <textarea
+                    className={style.input}
                     name="review"
                     id="review"
-                    placeholder="Review"
+                    placeholder="Post here a review"
                     rows="10"
-                    {...register("review",{
+                    {...register("review", {
                         required: {
                             value: true,
                             message: "Review is required"
                         }
                     })}
                 />
-                <input
-                    className={style.star}
-                    type="radio"
-                    id="star"
-                    name="role"
-                    value="1"
-                    {...register("radio", {
-                        required: {
-                            type: "radio",
-                            message: "One is required"
-                        }
-                    })}
-                />
-                <label htmlFor="star"></label>
-                <input
-                    type="radio"
-                    id="admin"
-                    name="role"
-                    value="2"
-                    {...register("radio", {
-                        required: {
-                            type: "radio",
-                            message: "One is required"
-                        }
-                    })}
-                />
-                <input
-                    type="radio"
-                    id="admin"
-                    name="role"
-                    value="3"
-                    {...register("radio", {
-                        required: {
-                            type: "radio",
-                            message: "One is required"
-                        }
-                    })}
-                />
-                <input
-                    type="radio"
-                    id="admin"
-                    name="role"
-                    value="4"
-                    {...register("radio", {
-                        required: {
-                            type: "radio",
-                            message: "One is required"
-                        }
-                    })}
-                />
-                <input
-                    type="radio"
-                    id="admin"
-                    name="role"
-                    value="5"
-                    {...register("radio", {
-                        required: {
-                            type: "radio",
-                            message: "One is required"
-                        }
-                    })}
-                />
-                <button className={style.btn}>Submit</button>
+
+                <button type="submit" className={style.button}>Submit</button>
             </form>
         </>
     )
 }
+
 export default Review;

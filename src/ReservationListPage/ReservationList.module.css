@@ -1,0 +1,21 @@
+.background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../assets/Reservation/een-stapel-pluizige-handgebreide-sjaals.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100%;
+}
+
+.container {
+    background-color: var(--background_container);
+    box-shadow: 0 0 15px 0 var(--container_shadow);
+    padding: 20px 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+    margin: 100px;
+}
