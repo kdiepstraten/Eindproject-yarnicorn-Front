@@ -3,11 +3,9 @@ import Introduction from "./Introduction.jsx";
 import hands_1 from "../assets/Home/one-woman-knitting-warm-multi-colored-winter-clothing-generated-by-ai (1).jpg";
 import hands_2 from "../assets/Home/one-woman-knitting-wool-sweater-generated-by-ai (1).jpg";
 import Categories from "./Categories.jsx";
-import PostReview from "./PostReview.jsx";
+import Review from "./Review.jsx";
 import Navigation from "../NavbarPage/Navigation.jsx";
-import GetReview from "./GetReview.jsx";
-import {useEffect} from "react";
-import getReview from "./GetReview.jsx";
+
 function Home(){
 
     return(
@@ -22,8 +20,7 @@ function Home(){
                 text_2="Of je nu een ervaren breister, een enthousiaste haakster, een opkomend textielkunstenaar bent, of gewoon nieuwsgierig naar waar creativiteit en vakmanschap samenkomen om prachtige en warme meesterwerken te creëren, hier, in de wereld van vezelkunst, zul je een schat aan inspiratie, kennis en hoogwaardige materialen ontdekken om je projecten tot leven te brengen."
                 />
             <Categories/>
-            <GetReview/>
-            <PostReview/>
+            <Review/>
         </>
     )
 }

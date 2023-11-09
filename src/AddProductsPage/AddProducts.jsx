@@ -11,21 +11,14 @@ function AddProducts() {
     const navigate = useNavigate();
 
 
-    function handleFormSubmit(data) {
-        console.log(data);
-        // navigate("/products")
-        void postProduct;
-    }
-
-    async function postProduct(data) {
-
+    async function handleFormSubmit(data) {
         try {
             const response = await axios.post('http://localhost:8080/product', data);
-             console.log(response.data)
+            console.log(response.data)
+            navigate("/products/leeg");
         } catch (e) {
             console.error(e);
         }
-
     }
 
     return (

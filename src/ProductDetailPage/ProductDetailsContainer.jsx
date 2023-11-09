@@ -5,23 +5,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 function ProductDetailsContainer({product, image }){
     const navigate = useNavigate();
-    // const [product, setProduct] = useState('');
-    // const {productId} = useParams();
-    // const [error, toggleError] = useState(false)
-    //
-    // useEffect(() => {
-    //     void updateProduct();
-    // }, []);
-    // async function updateProduct(){
-    //     try {
-    //         const response = await axios.get(`http://localhost:8080/product/${productId}`)
-    //         setProduct((response.data));
-    //         console.log(response.data);
-    //     } catch (error) {
-    //         console.error(error);
-    //         toggleError(true);
-    //     }
-    // }
+
+
     function onClick(){
         navigate("/reservation");
     }

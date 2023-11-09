@@ -5,7 +5,7 @@ function Navigation(){
         <nav className="navigation">
             <ul>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/">Home</NavLink></li>
-                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/products">Products</NavLink></li>
+                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to={`/products/leeg`}>Products</NavLink></li>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/aboutus">About us</NavLink></li>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/addproducts">Add Product</NavLink></li>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/registration">Registrate</NavLink></li>

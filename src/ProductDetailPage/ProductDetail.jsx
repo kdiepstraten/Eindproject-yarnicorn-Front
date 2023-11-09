@@ -12,9 +12,10 @@ function ProductDetail() {
     const [product, setProduct] = useState({});
     const [error, toggleError] = useState(false);
 
+
     useEffect(() => {
         void fetchProductDetails();
-    }, [productId]);
+    }, []);
 
     async function fetchProductDetails() {
         toggleError(false);
@@ -30,6 +31,7 @@ function ProductDetail() {
     return (
         <>
             <div className={style.background}>
+                {console.log(product)}
                 <Navigation/>
                 <div className={style.header}></div>
                 <ProductDetailsContainer

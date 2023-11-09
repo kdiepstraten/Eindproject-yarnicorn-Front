@@ -3,10 +3,11 @@ import Navigation from "../NavbarPage/Navigation.jsx";
 import Products from "./Products.jsx";
 import isager1 from "../assets/Products/Isager eco soft .jpg"
 import myVideo from "../assets/video/1106913_1080p_Craft_Detail_1920x1080.mp4"
+import {useParams} from "react-router-dom";
 
 
 function ProductsPage() {
-
+    const {categoryName} = useParams();
 
     return (
         <>
@@ -21,6 +22,7 @@ function ProductsPage() {
                 <div className={style.products}>
                     <Products
                         image={isager1}
+                        category={categoryName}
                     />
 
                 </div>

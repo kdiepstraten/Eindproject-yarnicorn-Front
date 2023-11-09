@@ -3,25 +3,26 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {useState} from "react";
 
 function Registration() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
 
-    function handleFormSubmit(data) {
-        console.log(data);
-        void postRegistration(data);
-        navigate("/login");
-    }
+    let userRole = ["USER"];
 
-    async function postRegistration(data) {
+    async function handleFormSubmit(data) {
+        console.log(data)
+        console.log(data.roles)
         try {
-            const response = await axios.post("http://localhost:8080/profile", data);
+            const response   = await axios.post("http://localhost:8080/profile", data);
             console.log(response.data);
+            navigate("/login");
         } catch (e) {
             console.error(e);
         }
     }
+    //TODO: Error 500 na submit
     return (
         <>
             <div className={style.background}>
@@ -105,8 +106,7 @@ function Registration() {
                             <input
                                 type="radio"
                                 id="admin"
-                                name="role"
-                                value="ADMIN"
+                                value='["ADMIN"]'
                                 {...register("roles", {
                                     required: {
                                         type: "radio",
@@ -119,9 +119,9 @@ function Registration() {
                         <div className={style.radio}>
                             <input
                                 type="radio"
+
                                 id="user"
-                                name="role"
-                                value="USER"
+                                value='["USER"]'
                                 {...register("roles", {
                                     required: {
                                         type: "radio",

@@ -7,16 +7,13 @@ import axios from "axios";
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
-    function handleFormSubmit(formData) {
-        console.log(formData);
-        void postRegistration;
-        navigate("/products");
-    }
 
-    async function postRegistration(data) {
+    async function handleFormSubmit(data) {
+        console.log(data);
         try {
             const response = await axios.post("http://localhost:8080/auth", data);
             console.log(response.data);
+            navigate("/products");
         } catch (e) {
             console.error(e);
         }
@@ -43,8 +40,7 @@ function Login() {
                                 required: {
                                     value: true,
                                     message: "An username is required",
-                                },
-                                validate: (value) => value.includes('@') || "Email requires an @ "
+                                }
                             })}
                         />
                         {errors.name && <p>{errors.name.message}</p>}

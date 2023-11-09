@@ -9,16 +9,14 @@ function Reservation() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
 
-    function handleFormSubmit(data) {
-        void postReservation(data);
-        console.log(data);
-        navigate("/");
-    }
 
-    async function postReservation(data) {
+
+    async function handleFormSubmit(data) {
+        console.log(data);
         try {
             const response = await axios.post('http://localhost:8080/reservation', data);
             console.log(response.data)
+            navigate("/products/leeg");
         } catch (e) {
             console.error(e);
         }
