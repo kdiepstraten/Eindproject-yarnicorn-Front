@@ -4,6 +4,7 @@ import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useState} from "react";
+import Button from "../Button.jsx";
 
 function Registration() {
     const {register, handleSubmit} = useForm();
@@ -14,15 +15,23 @@ function Registration() {
     async function handleFormSubmit(data) {
         console.log(data)
         console.log(data.roles)
+
+        const rolesArray = data.roles ? [data.roles] : [];
+
+        // Replace the 'roles' field with the array
+        const newData = { ...data, roles: rolesArray };
+
         try {
-            const response   = await axios.post("http://localhost:8080/profile", data);
+            const response   = await axios.post('http://localhost:8080/users', newData);
             console.log(response.data);
             navigate("/login");
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
         }
     }
-    //TODO: Error 500 na submit
+
     return (
         <>
             <div className={style.background}>
@@ -102,40 +111,52 @@ function Registration() {
                         />
 
                         <div className={style["radio-container"]}>
-                        <div className={style.radio}>
-                            <input
-                                type="radio"
-                                id="admin"
-                                value='["ADMIN"]'
-                                {...register("roles", {
-                                    required: {
-                                        type: "radio",
-                                        message: "One is required"
-                                    }
-                                })}
-                            />
-                            <label className={style.label}>Admin</label>
+                            <div className={style.radio}>
+                                <input
+                                    type="radio"
+                                    id="admin"
+                                    value='ADMIN'
+                                    {...register("roles", {
+                                        required: {
+                                            type: "radio",
+                                            message: "One is required"
+                                        }
+                                    })}
+                                />
+                                <label className={style.label}>Admin</label>
+                            </div>
+                            <div className={style.radio}>
+                                <input
+                                    type="radio"
+                                    id="user"
+                                    value='USER'
+                                    {...register("roles", {
+                                        required: {
+                                            type: "radio",
+                                            message: "One is required"
+                                        }
+                                    })}
+                                />
+                                <label className={style.label}>User</label>
+                            </div>
                         </div>
-                        <div className={style.radio}>
-                            <input
-                                type="radio"
-
-                                id="user"
-                                value='["USER"]'
-                                {...register("roles", {
-                                    required: {
-                                        type: "radio",
-                                        message: "One is required"
-                                    }
-                                })}
-                            />
-                            <label className={style.label}>User</label>
-                        </div>
-                        </div>
-
-                        <button className={style.btn}
-                                type="submit">Submit</button>
-
+                        {/*<select*/}
+                        {/*    name="roles"*/}
+                        {/*    id="roles"*/}
+                        {/*    {...register("roles", {*/}
+                        {/*        required: {*/}
+                        {/*            value: true,*/}
+                        {/*            message: "One is required",*/}
+                        {/*        },*/}
+                        {/*    })}*/}
+                        {/*>*/}
+                        {/*    <option value="" disabled>Select a role</option>*/}
+                        {/*    <option value='["ADMIN"]'>Admin</option>*/}
+                        {/*    <option value='["USER"]'>User</option>*/}
+                        {/*</select>*/}
+                        <Button
+                            type="submit"
+                            text="Submit"/>
                     </form>
                 </div>
             </div>

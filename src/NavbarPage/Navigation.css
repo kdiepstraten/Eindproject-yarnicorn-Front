@@ -5,17 +5,25 @@
 }
 
 .active {
-    border-bottom: 2px dashed hsl(36, 100%, 70%);
+    border-bottom: 2px outset hsl(36, 100%, 70%);
     color: hsl(36, 100%, 92%);
     text-decoration: none;
+    transform: scale(3);
+    transition: transform 0.3s ease;
+
 }
 .default {
     color: ghostwhite;
     text-decoration: none;
+    transform: scale(1);
+}
+.default:hover{
+    font-size: 24px;
 }
 li {
     margin: 0 10px;
     list-style: none;
+    font-size: 22px;
 }
 ul {
     display: flex;

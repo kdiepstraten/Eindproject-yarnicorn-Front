@@ -3,12 +3,15 @@ import {NavLink} from "react-router-dom";
 import style from "./ProductsPage.module.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
+import login from "../LoginPage/Login.jsx";
 
 function Products({image, category}) {
     const [product, setProduct] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
+
+    console.log(category    )
 
     useEffect(() => {
         void fetchProduct();
@@ -22,9 +25,11 @@ function Products({image, category}) {
         try {
             const response = await axios.get('http://localhost:8080/product');
             setProduct(response.data);
-            // console.log(response.data)
+            console.log(response.data)
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
             toggleError(true);
         }
         toggleLoading(false)
@@ -35,9 +40,11 @@ function Products({image, category}) {
         try {
             const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`)
             setCategoryName(result.data);
-            // console.log(result)
+            console.log(result)
         }catch (e) {
             console.error(e)
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
         }
     }
 
@@ -52,20 +59,22 @@ function Products({image, category}) {
                             <p>{product.name}</p>
                             <p>{product.blend}</p>
                             <p>{product.color}</p>
-                            <NavLink className={style.link} to={`/products/${product.id}`}>More info</NavLink>
+                            <NavLink className={style.link} to={`/products-detail/${product.id}`}>More info</NavLink>
                         </div> //TODO: product.id is not a valid path
                     ))
             :
                 categoryName.map((category) => (
+
                     <div className={style["products__container"]} key={category.id}>
+                        {console.log(category)};
                         <figure className={style["products__figure"]}>
                             <img src={image} alt={category.name}/>
                         </figure>
                         <p>{category.name}</p>
                         <p>{category.blend}</p>
                         <p>{category.color}</p>
-                        {console.log(category.id)}
-                        <NavLink className={style.link} to={`/products/${category.id}`}>More info</NavLink>
+
+                        <NavLink className={style.link} to={`/products-detail/${category.id}`}>More info</NavLink>
                     </div>
                 ))}
 

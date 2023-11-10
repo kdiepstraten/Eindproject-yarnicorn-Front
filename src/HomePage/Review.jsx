@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import style from "../HomePage/home.module.css";
 import axios from "axios";
+import Button from "../Button.jsx";
 
 function Review() {
     const[review, toggleReview] = useState(false);
@@ -24,10 +25,12 @@ function Review() {
             toggleReview(!review)
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
             toggleError(true);
         }
-
     }
+
 
     async function getReviews() {
         try {
@@ -36,6 +39,8 @@ function Review() {
             // console.log(response.data);
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
             toggleError(true);
         }
     }
@@ -78,7 +83,9 @@ function Review() {
                     })}
                 />
 
-                <button type="submit" className={style.button}>Submit</button>
+                <Button
+                    type="submit"
+                    text="Submit"/>
             </form>
         </>
     )

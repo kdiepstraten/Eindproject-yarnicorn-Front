@@ -3,6 +3,7 @@ import {useForm} from 'react-hook-form';
 import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import Button from "../Button.jsx";
 
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
@@ -13,12 +14,14 @@ function Login() {
         try {
             const response = await axios.post("http://localhost:8080/auth", data);
             console.log(response.data);
-            navigate("/products");
+            navigate("/products/leeg");
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
         }
     }
-//TODO: handleFormSubmit aanpassen zodat de login button werkt.
+
     return (
         <>
             <div className={style.background}>
@@ -39,11 +42,10 @@ function Login() {
                             {...register("username", {
                                 required: {
                                     value: true,
-                                    message: "An username is required",
+                                    message: "A username is required",
                                 }
                             })}
                         />
-                        {errors.name && <p>{errors.name.message}</p>}
 
                         <input
                             className={style.input}
@@ -53,14 +55,13 @@ function Login() {
                             {...register("password", {
                                 required: {
                                     value: true,
-                                    message: "An password is required"
+                                    message: "A password is required"
                                 }
                             })}
                         />
-
-                        <button className={style.button}
-                                type="submit">Login</button>
-
+                        <Button
+                            type="submit"
+                            text="Login"/>
                     </form>
 
                 </div>

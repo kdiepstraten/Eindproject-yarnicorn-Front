@@ -5,6 +5,7 @@ import hands_2 from "../assets/Home/one-woman-knitting-wool-sweater-generated-by
 import Categories from "./Categories.jsx";
 import Review from "./Review.jsx";
 import Navigation from "../NavbarPage/Navigation.jsx";
+import Footer from "./Footer.jsx";
 
 function Home(){
 

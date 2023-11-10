@@ -3,6 +3,7 @@ import {useForm} from "react-hook-form";
 import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import Button from "../Button.jsx";
 
 
 function Reservation() {
@@ -144,10 +145,10 @@ function Reservation() {
                             rows="6"
                             {...register("comment")}
                         />
-                        <button className={style["submit-btn"]}
-                                type="submit">Submit
-                        </button>
 
+                        <Button
+                            type="submit"
+                            text="Submit"/>
                     </form>
                 </div>
 

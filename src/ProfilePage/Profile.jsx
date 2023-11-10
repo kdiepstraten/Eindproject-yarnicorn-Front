@@ -2,17 +2,21 @@ import style from "./Profile.module.css"
 import Navigation from "../NavbarPage/Navigation.jsx";
 import {useEffect, useState} from "react";
 import axios from "axios";
-
+import {useNavigate} from "react-router-dom";
+import Button from "../Button.jsx";
 function Profile() {
+
     const [profile, setProfile] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [product, setProduct] = useState([]);
     const [formState, setFormState] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         void fetchProfile();
         void fetchProduct();
+
     }, []);
 
     async function fetchProduct() {
@@ -24,6 +28,8 @@ function Profile() {
             console.log(response.data)
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
             toggleError(true);
         }
         toggleLoading(false)
@@ -38,17 +44,23 @@ function Profile() {
             console.log(response.data)
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
             toggleError(true);
         }
         toggleLoading(false)
     }
-    async function deleteProduct() {
-        console.log(formState)
+    async function handleSubmit(e) {
+        e.preventDefault()
         try {
             const response = await axios.delete(`http://localhost:8080/product/${formState}`);
             console.log(response)
+
+            await fetchProduct()
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
         }
     }
 
@@ -61,24 +73,36 @@ function Profile() {
             <div className={style.header}></div>
             <div className={style.background}>
                 {profile.map((profile) => (
-                    <>
-                        <p key={profile.id}>First name: {profile.firstName}</p>
+                    <div key={profile.id} className={style.profile}>
+                        <p>First name: {profile.firstName}</p>
                         <p>Last name: {profile.lastName}</p>
                         <p>Email: {profile.email}</p>
-                    </>
+                    </div>
                 ))}
             </div>
-            <form >
-                <select name="productId" onChange={handleInputChange}>
+            <form onSubmit={handleSubmit}>
+                <select
+                    name="productId"
+                    onChange={handleInputChange}>
                     <option value="">Select a product</option>
                     {product &&
                         product.map((product) => { return (
-                        <option key={product.id} value={product.id}>{product.name}</option>)})}
+                        <option
+                            key={product.id}
+                            value={product.id}>{product.name}</option>)})}
                 </select>
 
-                <button type="button" onClick={deleteProduct}>Delete product</button>
+                <Button
+                    type="submit"
+                    text="Delete product"/>
+
             </form>
 
+            <Button
+                type="button"
+                text="Reserve list"
+                click={() => navigate("/reservation-list")}
+                />
         </>
     )
 }

@@ -11,6 +11,7 @@ import Reservation from "./ReservationPage/Reservation.jsx";
 import Registration from "./RegistrationPage/Registration.jsx";
 import ProductDetail from "./ProductDetailPage/ProductDetail.jsx";
 import ReservationList from "./ReservationListPage/ReservationList.jsx";
+import Footer from "./HomePage/Footer.jsx";
 
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/addproducts" element={<AddProducts/>}/>
                     <Route path="/products/:categoryName" element={<ProductsPage/>}/>
-                    <Route path="/products/:productId" element={<ProductDetail/>}/>
+                    <Route path="/products-detail/:productId" element={<ProductDetail/>}/>
                     <Route path="/aboutus" element={<Aboutus/>}/>
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/login" element={<Login/>}/>
@@ -32,6 +33,7 @@ function App() {
                     <Route path="/reservation-list" element={<ReservationList/>}/>
                     <Route path="*" element={<Error/>}/>
                 </Routes>
+                <Footer/>
             </div>
         </>
     )

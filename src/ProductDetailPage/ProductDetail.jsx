@@ -31,7 +31,6 @@ function ProductDetail() {
     return (
         <>
             <div className={style.background}>
-                {console.log(product)}
                 <Navigation/>
                 <div className={style.header}></div>
                 <ProductDetailsContainer
