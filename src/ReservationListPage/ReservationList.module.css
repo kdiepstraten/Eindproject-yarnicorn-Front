@@ -1,21 +1,19 @@
-.background {
+.header {
+    width: 100%;
+    height: 30em;
+    background-image: url("../assets/Reservation/pile-yarns-with-word-wool-it (2).jpg");
+    background-position: center;
+    background-size: cover;
+}
+.container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    background-image: url("../assets/Reservation/een-stapel-pluizige-handgebreide-sjaals.jpg");
-    background-size: cover;
-    background-position: center;
-    width: 100vw;
+    width: 100%;
     height: 100%;
+    margin: 10px 0;
 }
-
-.container {
-    background-color: var(--background_container);
-    box-shadow: 0 0 15px 0 var(--container_shadow);
-    padding: 20px 20px;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 20px;
-    margin: 100px;
+.entry {
+    width: 300px;
+    margin: 10px 0;
 }

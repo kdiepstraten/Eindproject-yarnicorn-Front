@@ -4,8 +4,11 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useState} from "react";
+import Button from "../Button.jsx";
 
 function AddProducts() {
+
+    const [file, setFile] = useState([]);
 
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
@@ -18,6 +21,33 @@ function AddProducts() {
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+        }
+    }
+
+    function handleImageChange(e) {
+        console.log(e.target.files[0])
+        setFile(e.target.files[0])
+    }
+
+    async function handleImageSubmit() {
+        const formData = new FormData();
+        formData.append("file", file);
+        console.log(file)
+        try {
+
+            const response = await axios.post('http://localhost:8080/single/uploadDB', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+
+                }
+            });
+            console.log(response.data)
+        } catch (e) {
+            console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
         }
     }
 
@@ -146,23 +176,22 @@ function AddProducts() {
                                 }
                             })}
                         />
-                        {/*TODO: form maken voor image. Functie schrijven om die naar een ander endpoint te sturen.*/}
-                        {/*<input*/}
-                        {/*    className={style.input}*/}
-                        {/*    type="file"*/}
-                        {/*    name="image"*/}
-                        {/*    accept="image/*"*/}
-                        {/*    id="image"*/}
-                        {/*    placeholder="Image"*/}
-                        {/*    {...register("image")}*/}
-                        {/*/>*/}
-
-                        <button
+                        <Button
                             type="submit"
-                            className={style.btn}>Submit
-                        </button>
-
+                            text="Submit"/>
                     </form>
+
+                    <input className="text-color"
+                           id="file"
+                           type="file"
+                           title=" "
+                           onChange={handleImageChange}
+                    />
+
+                    <Button
+                        type='submit'
+                        click={handleImageSubmit}
+                        text='Send'/>
 
                 </div>
             </div>

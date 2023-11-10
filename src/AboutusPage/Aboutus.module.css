@@ -23,3 +23,9 @@
 .align {
     align-self: end ;
 }
+.contact-top {
+    margin-top: 30px;
+}
+.contact-bttm {
+    margin-bottom: 30px;
+}
