@@ -1,0 +1,68 @@
+.background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/AddProduct/breisteek-ai-genereren (1).jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100%;
+}
+
+.container {
+    background-color: var(--background_container);
+    box-shadow: 0 0 15px 0 var(--container_shadow);
+    padding: 20px 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 40px;
+}
+
+.numbers {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.input {
+    border: none;
+    outline: none;
+    background-color: var(--background_input);
+    height: 40px;
+    border-radius: .25em;
+    margin: .5em;
+    font-size: 1rem;
+    padding: .5em;
+    color: ghostwhite;
+    font-weight: lighter;
+}
+
+.input::placeholder {
+    padding-left: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+    color: ghostwhite;
+}
+
+.area {
+    height: 80px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}

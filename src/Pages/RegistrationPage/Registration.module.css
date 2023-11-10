@@ -1,0 +1,65 @@
+.background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url("../../assets/Signin/een-stapel-warme-winterkleding-op-een-bed.jpg");
+    background-size: cover;
+    background-position: center;
+    width: 100vw;
+    height: 100vh;
+}
+.container {
+    background-color: var(--background_container);
+    box-shadow: 0 0 15px 0 var(--container_shadow);
+    padding: 20px 20px;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 20px;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 40px;
+}
+.input {
+    border: none;
+    outline: none;
+    background-color: var(--background_input);
+    height: 40px;
+    border-radius: .25em;
+    margin: .5em;
+    font-size: 1rem;
+    padding: .5em;
+    color: white;
+    font-weight: lighter;
+}
+.input::placeholder {
+    padding-left: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+    color: ghostwhite;
+}
+.label {
+    color: ghostwhite;
+    margin-left: 5px;
+}
+.radio-container {
+    display: flex;
+    flex-direction: row;
+    /*width: 200px;*/
+    width: 80%;
+    max-width: 600px;
+    padding: 20px 20px;
+    justify-content: start;
+}
+.radio {
+    margin: 10px 15px;
+}
+.checkbox-container {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    justify-content: space-evenly;
+}
