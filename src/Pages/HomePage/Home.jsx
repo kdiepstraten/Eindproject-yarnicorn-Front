@@ -1,11 +1,11 @@
-import style from "./home.module.css"
+
 import Introduction from "../../Components/Introduction.jsx";
 import hands_1 from "../../assets/Home/one-woman-knitting-warm-multi-colored-winter-clothing-generated-by-ai (1).jpg";
 import hands_2 from "../../assets/Home/one-woman-knitting-wool-sweater-generated-by-ai (1).jpg";
 import Categories from "../../Components/Categories.jsx";
 import Review from "../../Components/Review.jsx";
 import Navigation from "../NavbarPage/Navigation.jsx";
-import Footer from "../../Components/Footer.jsx";
+
 
 function Home(){
 

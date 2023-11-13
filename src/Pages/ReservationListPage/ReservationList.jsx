@@ -1,13 +1,14 @@
 import Navigation from "../NavbarPage/Navigation.jsx";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import style from "./ReservationList.module.css"
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function ReservationList() {
     const [reservation, setReservation] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-
+    const { token } = useContext(AuthContext);
     useEffect(() => {
         void fetchReservation();
     }, []);
@@ -15,7 +16,12 @@ function ReservationList() {
         toggleError(false);
         toggleLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/reservation');
+            const response = await axios.get('http://localhost:8080/reservation', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             setReservation(response.data);
 
         } catch (e) {

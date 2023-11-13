@@ -56,4 +56,7 @@
     font-weight: bold;
     color: ghostwhite;
 }
+.required {
+    font-size: 0.8rem;
+}
 

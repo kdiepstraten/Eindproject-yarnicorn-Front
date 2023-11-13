@@ -4,22 +4,34 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
+    const {login} = useContext(AuthContext);
 
+    function showErrors(errorMessage) {
+        alert(errorMessage);
+
+    }
     async function handleFormSubmit(data) {
-        console.log(data);
+
         try {
             const response = await axios.post("http://localhost:8080/auth", data);
-            console.log(response.data);
+
+            console.log(response.data.Authorization[0]);
             navigate("/products/leeg");
+
+            login(response.data.Authorization[0]);
+
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
         }
+
     }
 
     return (
@@ -33,7 +45,7 @@ function Login() {
                           onSubmit={handleSubmit(handleFormSubmit)}>
 
                         <h1 className={style.title}>Welcome</h1>
-
+                        <p className={style.required}>All fields are required</p>
                         <input
                             className={style.input}
                             type="text"

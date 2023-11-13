@@ -1,27 +1,28 @@
 import style from "../Pages/ProductDetailPage/ProductDetail.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState} from "react";
+import {AuthContext} from "../Context/AuthContext.jsx";
 
 
 function ProductDetailsContainer({ product }) {
     const navigate = useNavigate();
     const [image, setImage] = useState(null);
-
+    const { token } = useContext(AuthContext);
     useEffect(() => {
         // Fetch and set the image when the component mounts
         void fetchImage();
     }, []);
 
     async function fetchImage() {
-        const image = product.name;
+        const image1 = product.name;
         try {
-            // if (!product.name) {
-            //     console.error("Product name is undefined");
-            //     return;
-            // }
-
-            const response = await axios.get(`http://localhost:8080/downloadFromDB/${image}`, {
+            const response = await axios.get(`http://localhost:8080/downloadFromDB/${image1}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                }, {
                 responseType: 'arraybuffer', // Specify the response type as arraybuffer
             });
 
@@ -31,6 +32,7 @@ function ProductDetailsContainer({ product }) {
 
             // Set the image state
             setImage(base64Image);
+            console.log(base64Image);
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response ? e.response.status : "unknown");

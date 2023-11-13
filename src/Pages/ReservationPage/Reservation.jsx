@@ -4,24 +4,31 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 
 function Reservation() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
-
-
+    const { token } = useContext(AuthContext);
 
     async function handleFormSubmit(data) {
         console.log(data);
         try {
-            const response = await axios.post('http://localhost:8080/reservation', data);
+            const response = await axios.post('http://localhost:8080/reservation', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             console.log(response.data)
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
         }
     }
+
     return (
         <>
             <div className={style.background}>
@@ -32,7 +39,7 @@ function Reservation() {
 
                         <h1>Welcome</h1>
                         <p className={style.text}>Please fill out this form</p>
-
+                        <p className={style.required}>All fields are required</p>
                         <input
                             className={style.input}
                             type="text"
@@ -143,7 +150,12 @@ function Reservation() {
                             id="comment"
                             placeholder="Comment"
                             rows="6"
-                            {...register("comment")}
+                            {...register("comment", {
+                                required: {
+                                    value: true,
+                                    message: "Product id is required"
+                                }
+                            })}
                         />
 
                         <Button

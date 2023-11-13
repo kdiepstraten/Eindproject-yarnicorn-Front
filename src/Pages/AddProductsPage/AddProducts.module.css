@@ -66,3 +66,6 @@
     align-items: center;
     margin-top: 20px;
 }
+.required {
+    font-size: 0.8rem;
+}

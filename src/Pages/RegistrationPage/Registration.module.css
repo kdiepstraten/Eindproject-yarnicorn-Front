@@ -63,3 +63,6 @@
     width: 200px;
     justify-content: space-evenly;
 }
+.required {
+    font-size: 0.8rem;
+}

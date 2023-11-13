@@ -1,16 +1,17 @@
 import "../Pages/ProductsPage/ProductsPage.jsx"
 import {NavLink} from "react-router-dom";
 import style from "../Pages/ProductsPage/ProductsPage.module.css";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
-import login from "../Pages/LoginPage/Login.jsx";
+import {AuthContext} from "../Context/AuthContext.jsx";
+
 
 function Products({image, category}) {
     const [product, setProduct] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-
+    const {token} = useContext(AuthContext);
     useEffect(() => {
         void fetchProduct();
         void fetchCategory()
@@ -21,7 +22,12 @@ function Products({image, category}) {
         toggleError(false);
         toggleLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/product');
+            const response = await axios.get('http://localhost:8080/product', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             setProduct(response.data);
             console.log(response.data)
         } catch (e) {
@@ -36,7 +42,12 @@ function Products({image, category}) {
     async function fetchCategory(){
 
         try {
-            const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`)
+            const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                })
             setCategoryName(result.data);
             console.log(result)
         }catch (e) {

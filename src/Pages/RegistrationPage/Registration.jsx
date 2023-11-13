@@ -3,13 +3,14 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {useState} from "react";
 import Button from "../../Components/Button.jsx";
+import {useContext} from "react";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function Registration() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
-
+    const { token } = useContext(AuthContext);
     async function handleFormSubmit(data) {
         console.log(data)
         console.log(data.roles)
@@ -20,7 +21,7 @@ function Registration() {
         const newData = { ...data, roles: rolesArray };
 
         try {
-            const response   = await axios.post('http://localhost:8080/users', newData);
+            const response   = await axios.post('http://localhost:8080/users', newData, );
             console.log(response.data);
             navigate("/login");
         } catch (e) {
@@ -39,7 +40,7 @@ function Registration() {
                           onSubmit={handleSubmit(handleFormSubmit)}>
 
                         <h1 className={style.title}>Welcome</h1>
-
+                        <p className={style.required}>All fields are required</p>
 
                         <input
                             className={style.input}

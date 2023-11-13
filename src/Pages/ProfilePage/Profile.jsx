@@ -1,9 +1,11 @@
 import style from "./Profile.module.css"
 import Navigation from "../NavbarPage/Navigation.jsx";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Button from "../../Components/Button.jsx";
+import {AuthContext} from "../../Context/AuthContext.jsx";
+
 function Profile() {
 
     const [profile, setProfile] = useState([]);
@@ -12,6 +14,7 @@ function Profile() {
     const [product, setProduct] = useState([]);
     const [formState, setFormState] = useState('');
     const navigate = useNavigate();
+    const { token } = useContext(AuthContext);
 
     useEffect(() => {
         void fetchProfile();
@@ -23,7 +26,12 @@ function Profile() {
         toggleError(false);
         toggleLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/product');
+            const response = await axios.get('http://localhost:8080/product', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             setProduct(response.data);
             console.log(response.data)
         } catch (e) {
@@ -39,7 +47,12 @@ function Profile() {
         toggleError(false);
         toggleLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/profile');
+            const response = await axios.get('http://localhost:8080/profile', {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             setProfile(response.data);
 
         } catch (e) {
@@ -53,7 +66,12 @@ function Profile() {
     async function handleSubmit(e) {
         e.preventDefault()
         try {
-            const response = await axios.delete(`http://localhost:8080/product/${formState}`);
+            const response = await axios.delete(`http://localhost:8080/product/${formState}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             console.log(response)
 
             await fetchProduct()
@@ -67,6 +85,11 @@ function Profile() {
     const handleInputChange = (e) => {
         setFormState(e.target.value)
     }
+
+    // if (!isAuth) {
+    //     return <div>Please log in</div>;
+    // }
+
     return (
         <>
             <Navigation/>
@@ -80,6 +103,8 @@ function Profile() {
                     </div>
                 ))}
             </div>
+
+            <h3>Only available for Admin:</h3>
             <form onSubmit={handleSubmit}>
                 <select
                     name="productId"
@@ -97,6 +122,7 @@ function Profile() {
                     text="Delete product"/>
 
             </form>
+
 
             <Button
                 type="button"

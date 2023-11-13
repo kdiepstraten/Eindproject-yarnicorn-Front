@@ -58,6 +58,7 @@ function AddProducts() {
                     <form className={style.form}
                           onSubmit={handleSubmit(handleFormSubmit)}>
                         <h1 className={style.title}>Add a product</h1>
+                        <p className={style.required}>All fields are required</p>
                         <input
                             className={style.input}
                             type="text"
@@ -114,7 +115,7 @@ function AddProducts() {
                             className={style.input}
                             type="text"
                             id="category"
-                            placeholder="Category"
+                            placeholder="Category. Hoofdletter gevoelig. bv. Alpaca"
                             {...register("category", {
                                 required: {
                                     value: true,
