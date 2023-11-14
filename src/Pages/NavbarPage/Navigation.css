@@ -1,0 +1,47 @@
+
+.navigation {
+    height: 30px;
+    margin: 10px;
+}
+
+.active {
+    border-bottom: 2px outset hsl(36, 100%, 70%);
+    color: hsl(36, 100%, 92%);
+    text-decoration: none;
+}
+
+.default {
+    color: ghostwhite;
+    text-decoration: none;
+
+}
+
+.default:hover {
+    font-size: 19px;
+    transition: ease;
+}
+
+li {
+    margin: 0 10px;
+    list-style: none;
+    font-size: 18px;
+}
+
+ul {
+    display: flex;
+    flex-direction: row;
+}
+
+@media screen and(max-width: 400px) {
+    li {
+        font-size: 12px;
+        margin: 0 ;
+    }
+
+    ul {
+        display: flex;
+        justify-content: center;
+
+    }
+
+}

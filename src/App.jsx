@@ -1,21 +1,23 @@
 import style from './App.module.css'
 import {Route, Routes} from "react-router-dom";
-import Home from "./HomePage/Home.jsx";
-import AddProducts from "./AddProductsPage/AddProducts.jsx";
-import ProductsPage from "./ProductsPage/ProductsPage.jsx";
-import Aboutus from "./AboutusPage/Aboutus.jsx";
-import Profile from "./ProfilePage/Profile.jsx";
-import Error from "./Error/Error.jsx";
-import Login from "./LoginPage/Login.jsx";
-import Reservation from "./ReservationPage/Reservation.jsx";
-import Registration from "./RegistrationPage/Registration.jsx";
-import ProductDetail from "./ProductDetailPage/ProductDetail.jsx";
-import ReservationList from "./ReservationListPage/ReservationList.jsx";
-import Footer from "./HomePage/Footer.jsx";
+import Home from "./Pages/HomePage/Home.jsx";
+import AddProducts from "./Pages/AddProductsPage/AddProducts.jsx";
+import ProductsPage from "./Pages/ProductsPage/ProductsPage.jsx";
+import Aboutus from "./Pages/AboutusPage/Aboutus.jsx";
+import Profile from "./Pages/ProfilePage/Profile.jsx";
+import Error from "./Pages/Error/Error.jsx";
+import Login from "./Pages/LoginPage/Login.jsx";
+import Reservation from "./Pages/ReservationPage/Reservation.jsx";
+import Registration from "./Pages/RegistrationPage/Registration.jsx";
+import ProductDetail from "./Pages/ProductDetailPage/ProductDetail.jsx";
+import ReservationList from "./Pages/ReservationListPage/ReservationList.jsx";
+import Footer from "./Components/Footer.jsx";
+import {useContext} from "react";
+import {AuthContext} from "./Context/AuthContext.jsx";
 
 
 function App() {
-
+const { isAuth } = useContext(AuthContext);
 
     return (
         <>
