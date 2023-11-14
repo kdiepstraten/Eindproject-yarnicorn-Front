@@ -1,5 +1,5 @@
 import style from "../Pages/ProductDetailPage/ProductDetail.module.css";
-import { useNavigate } from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../Context/AuthContext.jsx";
@@ -9,6 +9,7 @@ function ProductDetailsContainer({ product }) {
     const navigate = useNavigate();
     const [image, setImage] = useState(null);
     const { token } = useContext(AuthContext);
+    const { isAuthenticated } = useContext(AuthContext);
     useEffect(() => {
         // Fetch and set the image when the component mounts
         void fetchImage();
@@ -62,9 +63,10 @@ function ProductDetailsContainer({ product }) {
                     <p>Needlesize: {product.needleSize}</p>
                     <p>Length: {product.length}</p>
                     <p>Gauge: {product.gauge}</p>
+                    {isAuthenticated ? (
                     <button type="button" onClick={onClick} className={style.btn}>
                         Reserve
-                    </button>
+                    </button>) : <h1 className={style.login}>Please login to see our products. <NavLink className={style["link-products"]} to={"/login"}>Click here</NavLink></h1>}
                 </div>
             </div>
         </>

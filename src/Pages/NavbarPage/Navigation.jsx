@@ -14,7 +14,7 @@ function Navigation(){
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/addproducts">Add Product</NavLink></li>
                 )}
                 {!isAuthenticated && (
-                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/registration">Registration</NavLink></li>
+                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/registration">Register</NavLink></li>
                 )}
                 {!isAuthenticated && (
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/login">Login</NavLink></li>

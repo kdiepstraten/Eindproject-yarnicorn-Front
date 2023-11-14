@@ -9,6 +9,7 @@ const AuthContextProvider = ({children}) => {
         user: null,
         token: null,
     });
+
     useEffect(() => {
         const token = localStorage.getItem("token");
 
