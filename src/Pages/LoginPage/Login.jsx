@@ -6,19 +6,17 @@ import axios from "axios";
 import Button from "../../Components/Button.jsx";
 import {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-
+import {LoadingContext} from "../../Context/LoadingContext.jsx";
+import Spinner from "../../Components/Spinner.jsx";
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
     const {login} = useContext(AuthContext);
-
-    function showErrors(errorMessage) {
-        alert(errorMessage);
-
-    }
+    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
     async function handleFormSubmit(data) {
 
         try {
+            startLoading(<Spinner/>);
             const response = await axios.post("http://localhost:8080/auth", data);
 
             console.log(response.data.Authorization[0]);
@@ -30,12 +28,16 @@ function Login() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+        } finally {
+            stopLoading();
         }
 
     }
 
     return (
         <>
+            {loading ? <Spinner/>
+                :
             <div className={style.background}>
 
                 <div className={style.container}>
@@ -73,11 +75,12 @@ function Login() {
                         />
                         <Button
                             type="submit"
-                            text="Login"/>
+                            text={loading ? 'Logging in...' : 'Login'}
+                            />
                     </form>
 
                 </div>
-            </div>
+            </div>}
         </>
     )
 }

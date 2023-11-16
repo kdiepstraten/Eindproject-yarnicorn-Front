@@ -2,10 +2,18 @@ import {NavLink} from "react-router-dom";
 import "./Navigation.css"
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {useContext} from "react";
+import {LoadingContext} from "../../Context/LoadingContext.jsx";
+import Spinner from "../../Components/Spinner.jsx";
+
 function Navigation(){
-    const { isAuthenticated, logout } = useContext(AuthContext);
+    const { isAuthenticated, logout, username } = useContext(AuthContext);
+    const { loading } = useContext(LoadingContext);
     return(
+        <>
+        {loading ? <Spinner/>
+                :
         <nav className="navigation">
+
             <ul>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/">Home</NavLink></li>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to={`/products/leeg`}>Products</NavLink></li>
@@ -27,8 +35,10 @@ function Navigation(){
                              onClick={logout}
                              to="/">Logout</NavLink></li>
                     )}
+                {/*{isAuthenticated && (<p>Welcome {username}</p>)}*/}
             </ul>
-        </nav>
+        </nav>}
+        </>
     )
 }
 export default Navigation;

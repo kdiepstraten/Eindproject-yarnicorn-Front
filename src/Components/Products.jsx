@@ -12,11 +12,11 @@ function Products({image, category}) {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const {token} = useContext(AuthContext);
+
     useEffect(() => {
         void fetchProduct();
         void fetchCategory()
     }, []);
-
 
     async function fetchProduct() {
         toggleError(false);
@@ -29,7 +29,6 @@ function Products({image, category}) {
                 }
                 });
             setProduct(response.data);
-            console.log(response.data)
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -49,7 +48,6 @@ function Products({image, category}) {
                 }
                 })
             setCategoryName(result.data);
-            console.log(result)
         }catch (e) {
             console.error(e)
             console.error("Error status:", e.response.status);

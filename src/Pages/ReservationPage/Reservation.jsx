@@ -6,16 +6,19 @@ import axios from "axios";
 import Button from "../../Components/Button.jsx";
 import {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-
+import {LoadingContext} from "../../Context/LoadingContext.jsx";
+import Spinner from "../../Components/Spinner.jsx";
 
 function Reservation() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
+    const {startLoading, stopLoading, loading, loadingComponent} = useContext(LoadingContext);
 
     async function handleFormSubmit(data) {
         console.log(data);
         try {
+            startLoading(<Spinner/>);
             const response = await axios.post('http://localhost:8080/reservation', data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,11 +29,16 @@ function Reservation() {
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
+        } finally {
+            stopLoading();
+
         }
     }
 
     return (
         <>
+            {loading ? <Spinner/>
+            :
             <div className={style.background}>
 
                 <div className={style.container}>
@@ -160,11 +168,12 @@ function Reservation() {
 
                         <Button
                             type="submit"
-                            text="Submit"/>
+                            text={loading ? 'Submitting...' : 'Submit'}
+                            />
                     </form>
                 </div>
 
-            </div>
+            </div>}
         </>
     )
 }
