@@ -3,26 +3,35 @@ import {useForm} from "react-hook-form";
 import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import Button from "../../Components/Button.jsx";
-
+import {AuthContext} from "../../Context/AuthContext.jsx";
+import {LoadingContext} from "../../Context/LoadingContext.jsx";
+import Spinner from "../../Components/Spinner.jsx";
 function AddProducts() {
 
     const [file, setFile] = useState([]);
-
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
-
-
+    const { token } = useContext(AuthContext);
+    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
     async function handleFormSubmit(data) {
         try {
-            const response = await axios.post('http://localhost:8080/product', data);
+            startLoading(<Spinner/>);
+            const response = await axios.post('http://localhost:8080/product', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `${token}`
+                }
+                });
             console.log(response.data)
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+        } finally {
+            stopLoading();
         }
     }
 
@@ -36,10 +45,11 @@ function AddProducts() {
         formData.append("file", file);
         console.log(file)
         try {
-
+            startLoading(<Spinner/>);
             const response = await axios.post('http://localhost:8080/single/uploadDB', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
+                    Authorization: `${token}`
                 }
             });
             console.log(response.data)
@@ -47,11 +57,16 @@ function AddProducts() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+        } finally {
+            stopLoading();
         }
     }
 
     return (
         <>
+            {loading ? <Spinner/>
+            :
+            <>
             <div className={style.background}>
                 <div className={style.container}>
                     <NavigationHome/>
@@ -178,7 +193,8 @@ function AddProducts() {
                         />
                         <Button
                             type="submit"
-                            text="Submit"/>
+                            text="Submit"
+                            disabled={startLoading}/>
                     </form>
                         <div className={style["image-container"]}>
                     <input className="text-color"
@@ -190,11 +206,12 @@ function AddProducts() {
                     <Button
                         type='submit'
                         click={handleImageSubmit}
-                        text='Send'/>
+                        text='Send'
+                        />
                         </div>
                 </div>
             </div>
-
+            </>}
         </>
     )
 }

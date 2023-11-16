@@ -4,21 +4,25 @@ import ProductDetailsContainer from "../../Components/ProductDetailsContainer.js
 import {useParams} from "react-router-dom";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
-import {AuthContext} from "../../Context/AuthContext.jsx";
+
+import {LoadingContext} from "../../Context/LoadingContext.jsx";
+import Spinner from "../../Components/Spinner.jsx";
 
 
 function ProductDetail() {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
     const [error, toggleError] = useState(false);
-    const [image, setImage] = useState(null);
-    const { token } = useContext(AuthContext);
+    const { startLoading, stopLoading, loading } = useContext(LoadingContext);
+
+
     useEffect(() => {
         void fetchProductDetails();
-        // void getImage();
     }, []);
 
     async function fetchProductDetails() {
+     const token = localStorage.getItem("token")
+        startLoading(<Spinner/>);
         toggleError(false);
         try {
             const response = await axios.get(`http://localhost:8080/product/${productId}`, {
@@ -32,29 +36,24 @@ function ProductDetail() {
         } catch (error) {
             console.error(error);
             toggleError(true);
+        } finally {
+            stopLoading();
         }
     }
-    // async function getImage() {
-    //     const image = product.name;
-    //     try {
-    //         const response = await axios.get(`http://downloadFromDB/${image}`);
-    //         setImage(response.data);
-    //     }catch (e){
-    //         console.error(e);
-    //         console.error("Error status:", e.response.status);
-    //         console.error("Error data:", e.response.data);
-    //     }
-    // }
+
     return (
         <>
+            {loading ? <Spinner/>
+                :
             <div className={style.background}>
                 <Navigation/>
                 <div className={style.header}></div>
-                <ProductDetailsContainer
-                    product={product}
-                    image={image}
+                {Object.keys(product).length > 0 &&
+                    <ProductDetailsContainer
+                        product={product}
                     />
-            </div>
+                }
+            </div>}
 
         </>
     )

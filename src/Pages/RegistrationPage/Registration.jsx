@@ -5,34 +5,36 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";
 import {useContext} from "react";
-import {AuthContext} from "../../Context/AuthContext.jsx";
+import {LoadingContext} from "../../Context/LoadingContext.jsx";
+import Spinner from "../../Components/Spinner.jsx";
 
 function Registration() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
-    const { token } = useContext(AuthContext);
+    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+
     async function handleFormSubmit(data) {
-        console.log(data)
-        console.log(data.roles)
-
         const rolesArray = data.roles ? [data.roles] : [];
-
-        // Replace the 'roles' field with the array
-        const newData = { ...data, roles: rolesArray };
+        const newData = {...data, roles: rolesArray};
 
         try {
-            const response   = await axios.post('http://localhost:8080/users', newData, );
+            startLoading(<Spinner/>);
+            const response = await axios.post('http://localhost:8080/users', newData,);
             console.log(response.data);
             navigate("/login");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+        } finally {
+            stopLoading();
         }
     }
 
     return (
         <>
+            {loading ? <Spinner/>
+            :
             <div className={style.background}>
                 <div className={style.container}>
                     <NavigationHome/>
@@ -139,26 +141,13 @@ function Registration() {
                                 <label className={style.label}>User</label>
                             </div>
                         </div>
-                        {/*<select*/}
-                        {/*    name="roles"*/}
-                        {/*    id="roles"*/}
-                        {/*    {...register("roles", {*/}
-                        {/*        required: {*/}
-                        {/*            value: true,*/}
-                        {/*            message: "One is required",*/}
-                        {/*        },*/}
-                        {/*    })}*/}
-                        {/*>*/}
-                        {/*    <option value="" disabled>Select a role</option>*/}
-                        {/*    <option value='["ADMIN"]'>Admin</option>*/}
-                        {/*    <option value='["USER"]'>User</option>*/}
-                        {/*</select>*/}
                         <Button
                             type="submit"
-                            text="Submit"/>
+                            text={loading ? 'Submitting...' : 'Submit'}
+                            />
                     </form>
                 </div>
-            </div>
+            </div>}
         </>
     )
 }
