@@ -16,6 +16,7 @@
     width: 80%;
     max-width: 600px;
     border-radius: 20px;
+    margin: 100px;
 }
 .form {
     display: flex;
@@ -41,6 +42,9 @@
     font-weight: bold;
     color: ghostwhite;
 }
+.input:focus {
+    box-shadow: 0 0 2px 1px var(--input_focus);
+}
 .label {
     color: ghostwhite;
     margin-left: 5px;
@@ -48,7 +52,6 @@
 .radio-container {
     display: flex;
     flex-direction: row;
-    /*width: 200px;*/
     width: 80%;
     max-width: 600px;
     padding: 20px 20px;
@@ -65,4 +68,9 @@
 }
 .required {
     font-size: 0.8rem;
+}
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
 }

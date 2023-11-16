@@ -51,8 +51,13 @@ video {
 }
 .link-products {
     text-decoration: none;
-    color: ghostwhite;
+    color: var(--text);
 }
 .link-products:hover {
-    color: indianred;
+    color: var(--text_btn);
+}
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
 }

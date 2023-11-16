@@ -8,6 +8,7 @@ import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
 function AddProducts() {
 
     const [file, setFile] = useState([]);
@@ -15,8 +16,11 @@ function AddProducts() {
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
     const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+    const {error, handleError, clearError} = useContext(ErrorContext);
+
     async function handleFormSubmit(data) {
         try {
+            clearError();
             startLoading(<Spinner/>);
             const response = await axios.post('http://localhost:8080/product', data, {
                 headers: {
@@ -30,6 +34,7 @@ function AddProducts() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            handleError();
         } finally {
             stopLoading();
         }
@@ -43,8 +48,9 @@ function AddProducts() {
     async function handleImageSubmit() {
         const formData = new FormData();
         formData.append("file", file);
-        console.log(file)
+
         try {
+            clearError();
             startLoading(<Spinner/>);
             const response = await axios.post('http://localhost:8080/single/uploadDB', formData, {
                 headers: {
@@ -52,11 +58,11 @@ function AddProducts() {
                     Authorization: `${token}`
                 }
             });
-            console.log(response.data)
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            handleError();
         } finally {
             stopLoading();
         }
@@ -210,6 +216,7 @@ function AddProducts() {
                         />
                         </div>
                 </div>
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
             </div>
             </>}
         </>

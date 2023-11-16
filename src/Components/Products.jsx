@@ -4,14 +4,17 @@ import style from "../Pages/ProductsPage/ProductsPage.module.css";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "../Context/AuthContext.jsx";
+import {ErrorContext} from "../Context/ErrorContext.jsx";
+import {LoadingContext} from "../Context/LoadingContext.jsx";
+import Spinner from "./Spinner.jsx";
 
 
 function Products({image, category}) {
     const [product, setProduct] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
-    const [error, toggleError] = useState(false);
-    const [loading, toggleLoading] = useState(false);
     const {token} = useContext(AuthContext);
+    const {error, handleError, clearError} = useContext(ErrorContext);
+    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
 
     useEffect(() => {
         void fetchProduct();
@@ -19,9 +22,10 @@ function Products({image, category}) {
     }, []);
 
     async function fetchProduct() {
-        toggleError(false);
-        toggleLoading(true);
+
         try {
+            clearError();
+            startLoading(<Spinner/>);
             const response = await axios.get('http://localhost:8080/product', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,14 +37,16 @@ function Products({image, category}) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            toggleError(true);
+            handleError();
         }
-        toggleLoading(false)
+        stopLoading();
     }
 
     async function fetchCategory(){
 
         try {
+            clearError();
+            startLoading(<Spinner/>);
             const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,11 +58,16 @@ function Products({image, category}) {
             console.error(e)
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            handleError();
+        } finally {
+            stopLoading();
         }
     }
 
     return (
-        <>
+        <>{loading ? <Spinner/>
+            :
+            <>
             {category === "leeg" ?
                 product.map((product) => (
                         <div className={style["products__container"]} key={product.id}>
@@ -83,6 +94,8 @@ function Products({image, category}) {
                         <NavLink className={style.link} to={`/products-detail/${category.id}`}>More info</NavLink>
                     </div>
                 ))}
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+            </>}
         </>
     );
 

@@ -7,13 +7,15 @@ import axios from "axios";
 
 import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 
 function ProductDetail() {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
-    const [error, toggleError] = useState(false);
     const { startLoading, stopLoading, loading } = useContext(LoadingContext);
+    const {error, handleError, clearError} = useContext(ErrorContext);
 
 
     useEffect(() => {
@@ -23,7 +25,7 @@ function ProductDetail() {
     async function fetchProductDetails() {
      const token = localStorage.getItem("token")
         startLoading(<Spinner/>);
-        toggleError(false);
+        clearError();
         try {
             const response = await axios.get(`http://localhost:8080/product/${productId}`, {
                 headers: {
@@ -32,10 +34,12 @@ function ProductDetail() {
                 }
                 });
             setProduct(response.data);
-            console.log(response.data);
-        } catch (error) {
-            console.error(error);
-            toggleError(true);
+
+        } catch (e) {
+            console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+            handleError();
         } finally {
             stopLoading();
         }
@@ -53,6 +57,7 @@ function ProductDetail() {
                         product={product}
                     />
                 }
+                {/*{error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}*/}
             </div>}
 
         </>

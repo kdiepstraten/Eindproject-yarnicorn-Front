@@ -7,15 +7,16 @@ import Navigation from "../NavbarPage/Navigation.jsx";
 import {useContext} from "react";
 import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
-
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
+import style from "./home.module.css";
 
 function Home() {
     const {loading} = useContext(LoadingContext);
-
+    const {error} = useContext(ErrorContext);
     return (
         <>
-            {loading ? <Spinner/> :
-                <>
+
+
                     <Navigation/>
                     <Introduction
                         image_1={hands_1}
@@ -27,7 +28,8 @@ function Home() {
                     />
                     <Categories/>
                     <Review/>
-                </>}
+                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+
         </>
     )
 }

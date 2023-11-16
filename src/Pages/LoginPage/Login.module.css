@@ -12,7 +12,7 @@
 
 .container {
     background-color: var(--background_container);
-    box-shadow: 0 0 15px 0 var(--container_shadow);
+    box-shadow: var(--container_shadow);
     padding: 20px 20px;
     width: 80%;
     max-width: 600px;
@@ -47,7 +47,7 @@
 }
 
 .input:focus {
-    box-shadow: 0 0 2px 1px hsl(200, 100%, 50%);
+    box-shadow: 0 0 2px 1px var(--input_focus)
 }
 
 .input::placeholder {
@@ -59,4 +59,8 @@
 .required {
     font-size: 0.8rem;
 }
-
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
+}

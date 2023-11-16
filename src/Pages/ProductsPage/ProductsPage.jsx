@@ -8,12 +8,14 @@ import {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
 
 
 function    ProductsPage() {
     const {categoryName} = useParams();
     const { isAuthenticated } = useContext(AuthContext);
     const { loading } = useContext(LoadingContext);
+    const {error} = useContext(ErrorContext);
     return (
         <>
             {loading ? <Spinner/>
@@ -34,7 +36,10 @@ function    ProductsPage() {
                     />
                 </div>
                 ) : <h1 className={style.login}>Please login to see our products. <NavLink className={style["link-products"]} to={"/login"}>Click here</NavLink></h1>}
-            </div>}
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+            </div>
+
+            }
         </>
     )
 }

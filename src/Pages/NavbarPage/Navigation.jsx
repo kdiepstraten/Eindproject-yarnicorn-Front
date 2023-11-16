@@ -6,7 +6,7 @@ import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
 
 function Navigation(){
-    const { isAuthenticated, logout, username } = useContext(AuthContext);
+    const { isAuthenticated, logout, user } = useContext(AuthContext);
     const { loading } = useContext(LoadingContext);
     return(
         <>
@@ -35,7 +35,7 @@ function Navigation(){
                              onClick={logout}
                              to="/">Logout</NavLink></li>
                     )}
-                {/*{isAuthenticated && (<p>Welcome {username}</p>)}*/}
+                {isAuthenticated && (<p className="welcome">Welcome: {user.username}</p>)}
             </ul>
         </nav>}
         </>

@@ -48,11 +48,19 @@
     padding-left: 10px;
     padding-top: 5px;
     font-weight: bold;
-    color: ghostwhite;
+    color: var(--text);
+}
+.input:focus {
+    box-shadow: 0 0 2px 1px var(--input_focus);
 }
 .reservation-text-area {
     height: 80px;
 }
 .required {
     font-size: 0.8rem;
+}
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
 }

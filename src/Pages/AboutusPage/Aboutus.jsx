@@ -1,15 +1,13 @@
 import style from "./Aboutus.module.css"
 import Navigation from "../NavbarPage/Navigation.jsx";
 import {useContext} from "react";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
+
 
 function Aboutus() {
-    const {loading} = useContext(LoadingContext);
+    const {error} = useContext(ErrorContext);
     return (
-        <>  {loading ? <Spinner/>
-            :
-            <>
+        <>
                 <Navigation/>
                 <div className={style.background}>
                     <div className={style.container}>
@@ -47,7 +45,8 @@ function Aboutus() {
                         </div>
                     </div>
                 </div>
-            </>}
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+
         </>
     )
 }

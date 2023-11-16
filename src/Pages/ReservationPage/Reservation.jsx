@@ -8,16 +8,19 @@ import {useContext} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
 
 function Reservation() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
-    const {startLoading, stopLoading, loading, loadingComponent} = useContext(LoadingContext);
+    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+    const {error, handleError, clearError} = useContext(ErrorContext);
 
     async function handleFormSubmit(data) {
         console.log(data);
         try {
+            clearError();
             startLoading(<Spinner/>);
             const response = await axios.post('http://localhost:8080/reservation', data, {
                 headers: {
@@ -25,10 +28,12 @@ function Reservation() {
                     Authorization: `${token}`
                 }
                 });
-            console.log(response.data)
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+            handleError();
         } finally {
             stopLoading();
 
@@ -171,6 +176,7 @@ function Reservation() {
                             text={loading ? 'Submitting...' : 'Submit'}
                             />
                     </form>
+                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
                 </div>
 
             </div>}

@@ -7,17 +7,16 @@ import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+import {ErrorContext} from "../../Context/ErrorContext.jsx";
 
 function Profile() {
 
-    const [profile, setProfile] = useState([]);
-    const [error, toggleError] = useState(false);
     const [product, setProduct] = useState([]);
     const [formState, setFormState] = useState('');
     const navigate = useNavigate();
     const {token} = useContext(AuthContext);
     const {startLoading, stopLoading, loading} = useContext(LoadingContext);
-
+    const {error, handleError, clearError} = useContext(ErrorContext);
 
     useEffect(() => {
         void fetchProduct();
@@ -25,7 +24,7 @@ function Profile() {
 
     async function fetchProduct() {
         const token = localStorage.getItem("token")
-        toggleError(false);
+        clearError();
         startLoading(<Spinner/>);
         try {
             const response = await axios.get('http://localhost:8080/product', {
@@ -34,19 +33,20 @@ function Profile() {
                     Authorization: `${token}`
                 }
             });
-            console.log(token);
             setProduct(response.data);
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            toggleError(true);
+            handleError();
         } finally {
             stopLoading();
         }
     }
 
     async function handleSubmit(e) {
+        e.preventDefault();
+        clearError();
         startLoading(<Spinner/>);
         try {
             const response = await axios.delete(`http://localhost:8080/product/${formState}`, {
@@ -61,6 +61,7 @@ function Profile() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            handleError();
         } finally {
             stopLoading();
         }
@@ -107,7 +108,9 @@ function Profile() {
                         text="Reserve list"
                         click={() => navigate("/reservation-list")}
                     />
+                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
                 </>}
+
         </>
     )
 }
