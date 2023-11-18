@@ -5,13 +5,13 @@
 }
 
 .active {
-    border-bottom: 2px outset hsl(36, 100%, 70%);
-    color: hsl(36, 100%, 92%);
+    border-bottom: var(--border_active);
+    color: var(--border_active);
     text-decoration: none;
 }
 
 .default {
-    color: ghostwhite;
+    color: var(--text);
     text-decoration: none;
 
 }
@@ -45,3 +45,7 @@ ul {
     }
 
 }
+.welcome {
+    margin-left: 150px;
+}
+

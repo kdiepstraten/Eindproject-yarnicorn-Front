@@ -5,18 +5,16 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
 
 function Profile() {
 
-    const [profile, setProfile] = useState([]);
-    const [error, toggleError] = useState(false);
     const [product, setProduct] = useState([]);
     const [formState, setFormState] = useState('');
     const navigate = useNavigate();
     const {token} = useContext(AuthContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
 
     useEffect(() => {
@@ -25,8 +23,8 @@ function Profile() {
 
     async function fetchProduct() {
         const token = localStorage.getItem("token")
-        toggleError(false);
-        startLoading(<Spinner/>);
+        setError(false);
+        setLoading(true);
         try {
             const response = await axios.get('http://localhost:8080/product', {
                 headers: {
@@ -34,20 +32,21 @@ function Profile() {
                     Authorization: `${token}`
                 }
             });
-            console.log(token);
             setProduct(response.data);
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            toggleError(true);
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
     async function handleSubmit(e) {
-        startLoading(<Spinner/>);
+        e.preventDefault();
+        setError(false);
+        setLoading(true);
         try {
             const response = await axios.delete(`http://localhost:8080/product/${formState}`, {
                 headers: {
@@ -61,8 +60,9 @@ function Profile() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
@@ -107,7 +107,9 @@ function Profile() {
                         text="Reserve list"
                         click={() => navigate("/reservation-list")}
                     />
+                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
                 </>}
+
         </>
     )
 }

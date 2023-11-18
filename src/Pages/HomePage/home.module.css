@@ -1,6 +1,6 @@
 html {
     background: var(--background_home);
-    color: ghostwhite;
+    color: var(--text);
 }
 
 .introduction-text-container {
@@ -52,7 +52,7 @@ img {
     width: 380px;
     height: 350px;
     border-radius: 20px;
-    border: 2px solid black;
+    border: 2px solid var(--background_home);
     margin: 10px;
 }
 
@@ -153,7 +153,7 @@ form {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    border-top: 2px solid black;
+    border-top: 2px solid var(--footer);
     width: 100%;
 }
 
@@ -187,4 +187,9 @@ form {
         height: 250px;
     }
 
+}
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
 }

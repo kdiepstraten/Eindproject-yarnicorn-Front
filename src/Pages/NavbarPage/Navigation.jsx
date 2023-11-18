@@ -2,16 +2,14 @@ import {NavLink} from "react-router-dom";
 import "./Navigation.css"
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import {useContext} from "react";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
+
 
 function Navigation(){
-    const { isAuthenticated, logout, username } = useContext(AuthContext);
-    const { loading } = useContext(LoadingContext);
+    const { isAuthenticated, logout, user } = useContext(AuthContext);
+
     return(
         <>
-        {loading ? <Spinner/>
-                :
+
         <nav className="navigation">
 
             <ul>
@@ -35,9 +33,9 @@ function Navigation(){
                              onClick={logout}
                              to="/">Logout</NavLink></li>
                     )}
-                {/*{isAuthenticated && (<p>Welcome {username}</p>)}*/}
+                {isAuthenticated && (<p className="welcome">Welcome: {user.username}</p>)}
             </ul>
-        </nav>}
+        </nav>
         </>
     )
 }

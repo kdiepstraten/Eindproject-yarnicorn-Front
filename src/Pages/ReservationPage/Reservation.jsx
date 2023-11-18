@@ -4,33 +4,37 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";
-import {useContext} from "react";
-import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
+
 import Spinner from "../../Components/Spinner.jsx";
+import {useContext, useState} from "react";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function Reservation() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
-    const {startLoading, stopLoading, loading, loadingComponent} = useContext(LoadingContext);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     async function handleFormSubmit(data) {
-        console.log(data);
+
         try {
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/reservation', data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `${token}`
                 }
                 });
-            console.log(response.data)
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
 
         }
     }
@@ -171,6 +175,7 @@ function Reservation() {
                             text={loading ? 'Submitting...' : 'Submit'}
                             />
                     </form>
+                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
                 </div>
 
             </div>}

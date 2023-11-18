@@ -1,4 +1,4 @@
-import style from './App.module.css'
+import './App.css'
 import {Route, Routes} from "react-router-dom";
 import Home from "./Pages/HomePage/Home.jsx";
 import AddProducts from "./Pages/AddProductsPage/AddProducts.jsx";
@@ -12,16 +12,15 @@ import Registration from "./Pages/RegistrationPage/Registration.jsx";
 import ProductDetail from "./Pages/ProductDetailPage/ProductDetail.jsx";
 import ReservationList from "./Pages/ReservationListPage/ReservationList.jsx";
 import Footer from "./Components/Footer.jsx";
-import {useContext} from "react";
-import {AuthContext} from "./Context/AuthContext.jsx";
+
 
 
 function App() {
-const { isAuth } = useContext(AuthContext);
+
 
     return (
         <>
-            <div className={style["app--container"]}>
+            <div className="app--container">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/addproducts" element={<AddProducts/>}/>

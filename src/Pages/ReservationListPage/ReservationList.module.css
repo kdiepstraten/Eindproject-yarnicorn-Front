@@ -17,3 +17,8 @@
     width: 300px;
     margin: 10px 0;
 }
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
+}

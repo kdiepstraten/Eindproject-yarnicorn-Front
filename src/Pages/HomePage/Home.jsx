@@ -4,18 +4,14 @@ import hands_2 from "../../assets/Home/one-woman-knitting-wool-sweater-generated
 import Categories from "../../Components/Categories.jsx";
 import Review from "../../Components/Review.jsx";
 import Navigation from "../NavbarPage/Navigation.jsx";
-import {useContext} from "react";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
 
 
 function Home() {
-    const {loading} = useContext(LoadingContext);
 
     return (
         <>
-            {loading ? <Spinner/> :
-                <>
+
+
                     <Navigation/>
                     <Introduction
                         image_1={hands_1}
@@ -27,8 +23,7 @@ function Home() {
                     />
                     <Categories/>
                     <Review/>
-                </>}
-        </>
+                    </>
     )
 }
 

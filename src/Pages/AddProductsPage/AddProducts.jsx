@@ -6,7 +6,6 @@ import axios from "axios";
 import {useContext, useState} from "react";
 import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
 function AddProducts() {
 
@@ -14,24 +13,27 @@ function AddProducts() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+   const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
     async function handleFormSubmit(data) {
         try {
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/product', data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `${token}`
                 }
                 });
-            console.log(response.data)
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
@@ -43,22 +45,23 @@ function AddProducts() {
     async function handleImageSubmit() {
         const formData = new FormData();
         formData.append("file", file);
-        console.log(file)
+
         try {
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/single/uploadDB', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
                     Authorization: `${token}`
                 }
             });
-            console.log(response.data)
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
@@ -194,7 +197,7 @@ function AddProducts() {
                         <Button
                             type="submit"
                             text="Submit"
-                            disabled={startLoading}/>
+                            />
                     </form>
                         <div className={style["image-container"]}>
                     <input className="text-color"
@@ -210,6 +213,7 @@ function AddProducts() {
                         />
                         </div>
                 </div>
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
             </div>
             </>}
         </>

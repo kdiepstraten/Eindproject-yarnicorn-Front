@@ -15,15 +15,19 @@ const AuthContextProvider = ({children}) => {
     useEffect(() => {
         const token = localStorage.getItem("token");
 
-        if (token) {
-            void login(token);
-        } else {
-            setIsAuth({
-                isAuthenticated: false,
-                user: null,
-                status: "done",
-            });
-        }
+        const fetchData = async () => {
+            if (token) {
+                await login(token);
+            } else {
+                setIsAuth({
+                    isAuthenticated: false,
+                    user: null,
+                    status: "done",
+                });
+            }
+        };
+
+        void fetchData();
     }, []);
 
     async function login(token) {

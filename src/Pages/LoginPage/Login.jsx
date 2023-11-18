@@ -4,22 +4,22 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+
 function Login() {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
     const {login} = useContext(AuthContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
     async function handleFormSubmit(data) {
 
         try {
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post("http://localhost:8080/auth", data);
-
-            console.log(response.data.Authorization[0]);
             navigate("/products/leeg");
 
             login(response.data.Authorization[0]);
@@ -28,8 +28,9 @@ function Login() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
 
     }
@@ -78,8 +79,8 @@ function Login() {
                             text={loading ? 'Logging in...' : 'Login'}
                             />
                     </form>
-
                 </div>
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
             </div>}
         </>
     )
