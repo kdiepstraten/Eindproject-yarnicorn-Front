@@ -2,20 +2,17 @@ import style from "./ProductDetail.module.css"
 import Navigation from "../NavbarPage/Navigation.jsx";
 import ProductDetailsContainer from "../../Components/ProductDetailsContainer.jsx";
 import {useParams} from "react-router-dom";
-import {useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import axios from "axios";
-
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
-import {ErrorContext} from "../../Context/ErrorContext.jsx";
-import {AuthContext} from "../../Context/AuthContext.jsx";
+
 
 
 function ProductDetail() {
     const { productId } = useParams();
     const [product, setProduct] = useState({});
-    const { startLoading, stopLoading, loading } = useContext(LoadingContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
 
     useEffect(() => {
@@ -24,8 +21,8 @@ function ProductDetail() {
 
     async function fetchProductDetails() {
      const token = localStorage.getItem("token")
-        startLoading(<Spinner/>);
-        clearError();
+        setError(false);
+        setLoading(true);
         try {
             const response = await axios.get(`http://localhost:8080/product/${productId}`, {
                 headers: {
@@ -39,9 +36,9 @@ function ProductDetail() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
@@ -57,7 +54,7 @@ function ProductDetail() {
                         product={product}
                     />
                 }
-                {/*{error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}*/}
+                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
             </div>}
 
         </>

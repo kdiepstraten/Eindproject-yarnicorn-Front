@@ -4,9 +4,8 @@ import style from "../Pages/HomePage/home.module.css";
 import axios from "axios";
 import Button from "./Button.jsx";
 import {AuthContext} from "../Context/AuthContext.jsx";
-import {LoadingContext} from "../Context/LoadingContext.jsx";
-import {ErrorContext} from "../Context/ErrorContext.jsx";
 import Spinner from "./Spinner.jsx";
+
 
 
 function Review() {
@@ -14,18 +13,19 @@ function Review() {
     const [data, setData] = useState([]);
     const {register, handleSubmit, formState: {errors}} = useForm();
     const {token} = useContext(AuthContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         void getReviews()
     }, [review]);
 
+
     async function handleFormSubmit(data) {
 
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/review', data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -39,17 +39,16 @@ function Review() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
-
     async function getReviews() {
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.get('http://localhost:8080/review', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -62,9 +61,9 @@ function Review() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 

@@ -5,9 +5,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
-import {ErrorContext} from "../../Context/ErrorContext.jsx";
 
 function Profile() {
 
@@ -15,8 +13,9 @@ function Profile() {
     const [formState, setFormState] = useState('');
     const navigate = useNavigate();
     const {token} = useContext(AuthContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+
 
     useEffect(() => {
         void fetchProduct();
@@ -24,8 +23,8 @@ function Profile() {
 
     async function fetchProduct() {
         const token = localStorage.getItem("token")
-        clearError();
-        startLoading(<Spinner/>);
+        setError(false);
+        setLoading(true);
         try {
             const response = await axios.get('http://localhost:8080/product', {
                 headers: {
@@ -38,16 +37,16 @@ function Profile() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
-        clearError();
-        startLoading(<Spinner/>);
+        setError(false);
+        setLoading(true);
         try {
             const response = await axios.delete(`http://localhost:8080/product/${formState}`, {
                 headers: {
@@ -61,9 +60,9 @@ function Profile() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 

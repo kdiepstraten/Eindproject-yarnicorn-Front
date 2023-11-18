@@ -3,7 +3,8 @@ import {NavLink, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useEffect, useState} from "react";
 import {AuthContext} from "../Context/AuthContext.jsx";
-import {ErrorContext} from "../Context/ErrorContext.jsx";
+import Spinner from "./Spinner.jsx";
+
 
 
 function ProductDetailsContainer({product}) {
@@ -12,16 +13,18 @@ function ProductDetailsContainer({product}) {
     const [imageTwo, setImageTwo] = useState('');
     const {token} = useContext(AuthContext);
     const {isAuthenticated} = useContext(AuthContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
 
-        console.log(product);
+
 
         async function fetchImage() {
 
             try {
-                clearError();
+                setError(false);
+                setLoading(true);
                 const response = await axios.get(`http://localhost:8080/downloadFromDB/${product.name}.jpg`, {
                     headers: {
                         Authorization: `${token}`
@@ -56,7 +59,9 @@ function ProductDetailsContainer({product}) {
                 console.error(e);
                 console.error("Error status:", e.response.status);
                 console.error("Error data:", e.response.data);
-                handleError();
+                setError(true);
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -70,7 +75,8 @@ function ProductDetailsContainer({product}) {
 
     return (
         <>
-
+            {loading ? <Spinner/>
+            :
             <div className={style.container}>
                 <div className={style["container__left"]}>
                     <figure className={style["container__img"]}>
@@ -95,7 +101,7 @@ function ProductDetailsContainer({product}) {
                         className={style["link-products"]} to={"/login"}>Click here</NavLink></h1>}
                 </div>
                 {/*{error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}*/}
-            </div>
+            </div>}
         </>
     );
 }

@@ -4,8 +4,6 @@ import style from "../Pages/ProductsPage/ProductsPage.module.css";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "../Context/AuthContext.jsx";
-import {ErrorContext} from "../Context/ErrorContext.jsx";
-import {LoadingContext} from "../Context/LoadingContext.jsx";
 import Spinner from "./Spinner.jsx";
 
 
@@ -13,8 +11,9 @@ function Products({image, category}) {
     const [product, setProduct] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
     const {token} = useContext(AuthContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+
 
     useEffect(() => {
         void fetchProduct();
@@ -24,8 +23,8 @@ function Products({image, category}) {
     async function fetchProduct() {
 
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.get('http://localhost:8080/product', {
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,16 +36,18 @@ function Products({image, category}) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
+        } finally {
+            setLoading(false);
         }
-        stopLoading();
+
     }
 
     async function fetchCategory(){
 
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,9 +59,9 @@ function Products({image, category}) {
             console.error(e)
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 

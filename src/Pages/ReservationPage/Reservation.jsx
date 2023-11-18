@@ -4,24 +4,23 @@ import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";
-import {useContext} from "react";
-import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
+
 import Spinner from "../../Components/Spinner.jsx";
-import {ErrorContext} from "../../Context/ErrorContext.jsx";
+import {useContext, useState} from "react";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function Reservation() {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     async function handleFormSubmit(data) {
-        console.log(data);
+
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/reservation', data, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,9 +32,9 @@ function Reservation() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
 
         }
     }

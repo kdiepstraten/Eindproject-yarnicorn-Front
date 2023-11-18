@@ -6,37 +6,34 @@ import axios from "axios";
 import {useContext, useState} from "react";
 import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import {LoadingContext} from "../../Context/LoadingContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
-import {ErrorContext} from "../../Context/ErrorContext.jsx";
 function AddProducts() {
 
     const [file, setFile] = useState([]);
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
-    const {startLoading, stopLoading, loading} = useContext(LoadingContext);
-    const {error, handleError, clearError} = useContext(ErrorContext);
+   const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
     async function handleFormSubmit(data) {
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/product', data, {
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `${token}`
                 }
                 });
-            console.log(response.data)
             navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
@@ -50,8 +47,8 @@ function AddProducts() {
         formData.append("file", file);
 
         try {
-            clearError();
-            startLoading(<Spinner/>);
+            setError(false);
+            setLoading(true);
             const response = await axios.post('http://localhost:8080/single/uploadDB', formData, {
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -62,9 +59,9 @@ function AddProducts() {
             console.error(e);
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
-            handleError();
+            setError(true);
         } finally {
-            stopLoading();
+            setLoading(false);
         }
     }
 
@@ -200,7 +197,7 @@ function AddProducts() {
                         <Button
                             type="submit"
                             text="Submit"
-                            disabled={startLoading}/>
+                            />
                     </form>
                         <div className={style["image-container"]}>
                     <input className="text-color"

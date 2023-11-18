@@ -1,11 +1,10 @@
-import style from "./Aboutus.module.css"
+import  style from "./Aboutus.module.css"
 import Navigation from "../NavbarPage/Navigation.jsx";
-import {useContext} from "react";
-import {ErrorContext} from "../../Context/ErrorContext.jsx";
+
+
 
 
 function Aboutus() {
-    const {error} = useContext(ErrorContext);
     return (
         <>
                 <Navigation/>
@@ -14,7 +13,7 @@ function Aboutus() {
                         <h1>Learn more about the founder off Yarnicorn</h1>
                     </div>
                     <div className={style.flex}>
-                        <p className={style["text-box"]}>
+                        <article className={style["text-box"]}>
                             <h1>"My Yarn Journey"</h1>
 
                             Welcome to My Yarn Journey, where every strand of yarn tells a story. My love for yarn began
@@ -22,18 +21,18 @@ function Aboutus() {
                             Together, let's embark on a journey through the beautiful world of yarn, where each fiber is
                             an adventure in itself. Join me in weaving, knitting, and crocheting as we explore the
                             unique texture of every thread.
-                        </p>
+                        </article>
 
-                        <p className={`${style["align"]} ${style["text-box"]}`}>
+                        <article className={`${style["align"]} ${style["text-box"]}`}>
                             <h1>"Mission and Goal"</h1>
                             At My Yarn Journey, our mission is straightforward: we aim to provide high-quality yarn and
                             wool products that enhance the creativity and inspiration of every knitter and crocheter. We
                             believe in sharing warmth and comfort through artisanal handiwork. Our goal is to build a
                             community where enthusiastic makers come together, share ideas, and find inspiration in the
                             versatility of yarn. Let's celebrate the art of crafting together!
-                        </p>
+                        </article>
 
-                        <div className={style["text-box"]}>
+                        <article className={style["text-box"]}>
                             <h1>"Contact Info"</h1>
                             Do you have questions, suggestions, or just feel like having a cozy chat about yarn? We're
                             always open to connecting! Reach out to us using the contact details below.
@@ -42,10 +41,10 @@ function Aboutus() {
                             <p className={style["contact-bttm"]}>Address: Kensington 123, Londen, UK</p>
                             Feel free to get in touch. We look forward to hearing from you and sharing our love for yarn
                             together!
-                        </div>
+                        </article>
                     </div>
                 </div>
-                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+
 
         </>
     )
