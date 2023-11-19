@@ -87,7 +87,7 @@ function ReservationList() {
                                 <p>Comment: {res.comment}</p>
                                 <p>ProductId: {res.productId}</p>
                             </div>))}
-                    </div>
+
                     <form onSubmit={handleSubmit}>
                         <select
                             name="productId"
@@ -104,9 +104,10 @@ function ReservationList() {
 
                         <Button
                             type="submit"
-                            text="Delete product"/>
+                            text="Delete Reservation"/>
 
                     </form>
+                    </div>
                     {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
                 </>
             }

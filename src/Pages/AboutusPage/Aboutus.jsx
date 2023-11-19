@@ -7,8 +7,8 @@ import Navigation from "../NavbarPage/Navigation.jsx";
 function Aboutus() {
     return (
         <>
-                <Navigation/>
-                <div className={style.background}>
+            <Navigation/>
+            <div className={style.background}>
                     <div className={style.container}>
                         <h1>Learn more about the founder off Yarnicorn</h1>
                     </div>

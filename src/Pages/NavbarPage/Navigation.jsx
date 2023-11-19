@@ -29,7 +29,7 @@ function Navigation(){
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/profile">Profile</NavLink></li>
                 )}
                 {isAuthenticated && (
-                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'}
+                <li><NavLink className="default"
                              onClick={logout}
                              to="/">Logout</NavLink></li>
                     )}

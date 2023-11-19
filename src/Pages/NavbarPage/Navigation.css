@@ -30,22 +30,22 @@ li {
 ul {
     display: flex;
     flex-direction: row;
+    padding: 0;
 }
 
 @media screen and(max-width: 400px) {
     li {
         font-size: 12px;
         margin: 0 ;
+        text-align: center;
     }
 
     ul {
-        display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
 
     }
 
 }
-.welcome {
-    margin-left: 150px;
-}
+
 

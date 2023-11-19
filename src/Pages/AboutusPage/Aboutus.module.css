@@ -1,3 +1,4 @@
+
 .background {
     background-image: url("../../assets/Aboutus/cropped-shot-young-woman-knitting-created-with-generative-ai (1).jpg");
     background-size: cover;
@@ -9,6 +10,8 @@
     display: flex;
     justify-content: center;
     margin: 20px;
+    min-width: 400px;
+    ;
 }
 .flex {
     display: flex;
@@ -16,10 +19,12 @@
     justify-content: start;
 }
 .text-box {
-    max-width: 400px;
-    max-height: 200px;
-    margin: 100px;
-}
+
+     max-width: 400px;
+     max-height: 200px;
+     margin: 100px;
+ }
+
 .align {
     align-self: end ;
 }
