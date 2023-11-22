@@ -12,18 +12,22 @@ import Registration from "./Pages/RegistrationPage/Registration.jsx";
 import ProductDetail from "./Pages/ProductDetailPage/ProductDetail.jsx";
 import ReservationList from "./Pages/ReservationListPage/ReservationList.jsx";
 import Footer from "./Components/Footer.jsx";
+import {useContext} from "react";
+import {AuthContext} from "./Context/AuthContext.jsx";
 
 
 
 function App() {
 
+    const {isAuth} = useContext(AuthContext);
+    const {role} = useContext(AuthContext);
 
     return (
         <>
             <div className="app--container">
                 <Routes>
                     <Route path="/" element={<Home/>}/>
-                    <Route path="/addproducts" element={<AddProducts/>}/>
+                    <Route path="/addproducts" element={ role === "ROLE_ADMIN" ? <AddProducts/> : <Error/>}/>
                     <Route path="/products/:categoryName" element={<ProductsPage/>}/>
                     <Route path="/products-detail/:productId" element={<ProductDetail/>}/>
                     <Route path="/aboutus" element={<Aboutus/>}/>
@@ -31,7 +35,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/reservation" element={<Reservation/>}/>
                     <Route path="/registration" element={<Registration/>}/>
-                    <Route path="/reservation-list" element={<ReservationList/>}/>
+                    <Route path="/reservation-list"  element={ role === "ROLE_ADMIN" ? <ReservationList/> : <Error/> } />
                     <Route path="*" element={<Error/>}/>
                 </Routes>
                 <Footer/>

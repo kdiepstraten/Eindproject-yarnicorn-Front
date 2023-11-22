@@ -31,11 +31,13 @@ function ProductDetailsContainer({product}) {
                     }
                 });
                 console.log(response.data)
+                console.log(token)
+
                 const blob = new Blob([response.data], {type: 'image/jpeg'});
                 const imageUrl = URL.createObjectURL(blob);
                 console.log(imageUrl)
                 let reader = new FileReader();
-                setImageTwo(imageUrl)
+                setImageTwo(response.data)
                 reader.readAsDataURL(blob);
                 reader.onloadend = function () {
                     let base64data = reader.result;
@@ -81,7 +83,7 @@ function ProductDetailsContainer({product}) {
                 <div className={style["container__left"]}>
                     <figure className={style["container__img"]}>
                         {/*<img src={atob(image)} alt={product.name}/>*/}
-                        <img src={(imageTwo)} alt={product.name}/>
+                        <img src={`data:image/png;base64, ` +(imageTwo)} alt={product.name}/>
                     </figure>
                     <div className={style["container__info"]}>{product.description}</div>
                 </div>

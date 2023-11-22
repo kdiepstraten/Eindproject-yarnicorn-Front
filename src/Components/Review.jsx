@@ -12,16 +12,17 @@ function Review() {
     const [review, toggleReview] = useState(false);
     const [data, setData] = useState([]);
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const {token} = useContext(AuthContext);
+    const {token, role} = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         void getReviews()
+
     }, [review]);
 
 
-    async function handleFormSubmit(data) {
+     async function handleFormSubmit(data) {
 
         try {
             setError(false);
@@ -35,6 +36,7 @@ function Review() {
 
             console.log(response.data);
             toggleReview(!review)
+
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -72,14 +74,17 @@ function Review() {
             {loading ? <Spinner/>
                 :
                 <>
+                    {data.map((review) => (
+                        <div className={style["review-box"]} key={review.id}>
+                            <h2>{review.fullName}</h2>
+                            <p>{review.review}</p>
+                        </div>
+                    ))}
+                    {role === 'ROLE_ADMIN' && (
+                        <>
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
 
-                        {data.map((review) => (
-                            <div className={style["review-box"]} key={review.id}>
-                                <h2>{review.fullName}</h2>
-                                <p>{review.review}</p>
-                            </div>
-                        ))}
+
 
                         <input
                             className={style.input}
@@ -115,6 +120,8 @@ function Review() {
                     {error && (
                         <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
                             eigenaar.</p>)}
+                </>)}
+
                 </>}
         </>
     )

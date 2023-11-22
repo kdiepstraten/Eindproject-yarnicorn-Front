@@ -5,7 +5,7 @@ import {useContext} from "react";
 
 
 function Navigation(){
-    const { isAuthenticated, logout, user } = useContext(AuthContext);
+    const { isAuthenticated, logout, user , role} = useContext(AuthContext);
 
     return(
         <>
@@ -16,7 +16,7 @@ function Navigation(){
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/">Home</NavLink></li>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to={`/products/leeg`}>Products</NavLink></li>
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/aboutus">About us</NavLink></li>
-                {isAuthenticated && (
+                {role === "ROLE_ADMIN" && (
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/addproducts">Add Product</NavLink></li>
                 )}
                 {!isAuthenticated && (
@@ -33,6 +33,9 @@ function Navigation(){
                              onClick={logout}
                              to="/">Logout</NavLink></li>
                     )}
+                {role === "ROLE_ADMIN" && (
+                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/reservation-list">Reservation-list</NavLink></li>
+                )}
                 {isAuthenticated && (<p className="welcome">Welcome: {user.username}</p>)}
             </ul>
         </nav>

@@ -7,6 +7,7 @@ export const AuthContext = createContext({});
 const AuthContextProvider = ({children}) => {
     const [isAuth, setIsAuth] = useState({
         isAuthenticated: false,
+        role: null,
         user: null,
         token: null,
         status: "pending",
@@ -35,14 +36,16 @@ const AuthContextProvider = ({children}) => {
         localStorage.setItem('token', token);
 
         const info = jwtDecode(token);
-        const username = info.sub;
 
+        const username = info.sub;
+        const role = info.role[0].authority;
 
         setIsAuth({
             isAuthenticated: true,
             user: {
                 username: username,
             },
+            role: role,
             token: token,
             status: 'done',
         });
