@@ -1,6 +1,6 @@
 import style from "./Reservation.module.css"
 import {useForm} from "react-hook-form";
-import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
+import NavigationHome from "../../Components/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button.jsx";

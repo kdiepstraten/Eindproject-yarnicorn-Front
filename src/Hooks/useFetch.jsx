@@ -1,14 +1,11 @@
 import {useEffect, useState} from "react";
 import axios from "axios";
 
-
-
 const useFetch = ({ url, method, postData, config, state}) => {
 
     const [dataFetch, setData] = useState(state);
     const [loadingFetch, setLoadingFetch] = useState(true);
     const [errorFetch, setErrorFetch] = useState(false);
-
 
     useEffect(() => {
         void fetch();
@@ -37,6 +34,7 @@ const useFetch = ({ url, method, postData, config, state}) => {
         }
 
     }
+
     return {dataFetch, loadingFetch, errorFetch};
 }
 export default useFetch;

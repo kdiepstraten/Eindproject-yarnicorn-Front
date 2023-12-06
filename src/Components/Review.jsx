@@ -6,13 +6,11 @@ import Button from "./Button.jsx";
 import {AuthContext} from "../Context/AuthContext.jsx";
 import Spinner from "./Spinner.jsx";
 
-
-
 function Review() {
     const [review, toggleReview] = useState(false);
     const [data, setData] = useState([]);
     const {register, handleSubmit, formState: {errors}} = useForm();
-    const {token, role} = useContext(AuthContext);
+    const {token, isAuthenticated} = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -24,19 +22,16 @@ function Review() {
 
      async function handleFormSubmit(data) {
 
+
         try {
             setError(false);
             setLoading(true);
             const response = await axios.post('http://localhost:8080/review', data, {
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `${token}`
                 }
             });
-
-            console.log(response.data);
             toggleReview(!review)
-
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -48,17 +43,12 @@ function Review() {
     }
 
     async function getReviews() {
+
         try {
             setError(false);
             setLoading(true);
-            const response = await axios.get('http://localhost:8080/review', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${token}`
-                }
-            });
+            const response = await axios.get('http://localhost:8080/review');
             setData(response.data);
-
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -80,12 +70,9 @@ function Review() {
                             <p>{review.review}</p>
                         </div>
                     ))}
-                    {role === 'ROLE_ADMIN' && (
+                    {isAuthenticated && (
                         <>
                     <form onSubmit={handleSubmit(handleFormSubmit)}>
-
-
-
                         <input
                             className={style.input}
                             type="text"
@@ -121,7 +108,6 @@ function Review() {
                         <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
                             eigenaar.</p>)}
                 </>)}
-
                 </>}
         </>
     )

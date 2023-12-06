@@ -10,4 +10,5 @@
 .btn:hover,
 .btn:focus {
     box-shadow: var(--shadow_btn);
+    cursor: pointer;
 }

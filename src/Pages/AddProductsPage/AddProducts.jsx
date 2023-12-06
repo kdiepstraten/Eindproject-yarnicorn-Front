@@ -1,6 +1,6 @@
 import style from "./AddProducts.module.css"
 import {useForm} from "react-hook-form";
-import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
+import NavigationHome from "../../Components/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useState} from "react";
@@ -195,6 +195,18 @@ function AddProducts() {
                                         }
                                     })}
                                 />
+                                <input
+                                    className={style.input}
+                                    type="text"
+                                    id="url"
+                                    placeholder="Url"
+                                    {...register("fileUrl", {
+                                        required: {
+                                            value: true,
+                                            message: "Url is required"
+                                        }
+                                    })}/>
+
                                 <Button
                                     type="submit"
                                     text="Submit"

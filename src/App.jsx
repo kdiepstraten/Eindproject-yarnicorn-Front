@@ -19,7 +19,6 @@ import {AuthContext} from "./Context/AuthContext.jsx";
 
 function App() {
 
-    const {isAuth} = useContext(AuthContext);
     const {role} = useContext(AuthContext);
 
     return (
@@ -31,7 +30,7 @@ function App() {
                     <Route path="/products/:categoryName" element={<ProductsPage/>}/>
                     <Route path="/products-detail/:productId" element={<ProductDetail/>}/>
                     <Route path="/aboutus" element={<Aboutus/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/profile" element={  role === "ROLE_ADMIN" ? <Profile/> : <Error/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/reservation" element={<Reservation/>}/>
                     <Route path="/registration" element={<Registration/>}/>
