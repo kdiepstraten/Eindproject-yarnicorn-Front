@@ -23,6 +23,27 @@
     height: 100%;
     margin: 10px;
 }
+.input {
+    border: none;
+    outline: none;
+    background-color: var(--background_input);
+    height: 40px;
+    border-radius: .25em;
+    margin: .2em;
+    font-size: 1rem;
+    padding: .5em;
+    color: white;
+    font-weight: lighter;
+}
+.input:focus {
+    box-shadow: 0 0 2px 1px var(--input_focus)
+}
+.input::placeholder {
+    padding-left: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+    color: ghostwhite;
+}
 .error {
     color: var(--error);
     font-size: 1.2rem;

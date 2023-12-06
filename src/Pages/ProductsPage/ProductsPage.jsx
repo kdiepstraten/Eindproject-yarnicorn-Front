@@ -24,14 +24,12 @@ function    ProductsPage() {
                     <source className={style.video} src={myVideo} type="video/mp4"/>
                 </video>
 
-                {isAuthenticated ? (
                 <div className={style.products}>
                     <Products
                         image={isager1}
                         category={categoryName}
                     />
                 </div>
-                ) : <h1 className={style.login}>Please login to see our products. <NavLink className={style["link-products"]} to={"/login"}>Click here</NavLink></h1>}
                 {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
             </div>
 

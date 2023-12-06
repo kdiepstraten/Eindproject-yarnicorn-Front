@@ -4,7 +4,7 @@ import {useContext, useEffect, useState} from "react";
 import style from "./ReservationList.module.css"
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
-import Button from "../../Components/Button.jsx";
+import Dropdown from "../../Components/Dropdown.jsx";
 
 
 function ReservationList() {
@@ -73,42 +73,38 @@ function ReservationList() {
                 :
                 <>
                     <Navigation/>
-                    <div className={style.header}></div>
-                    <div className={style.container}>
-                        {reservation.map((res) => (
-                            <div className={style.entry} key={res.id}>
-                                <p>Full name: {res.fullName}</p>
-                                <p>Email: {res.email}</p>
-                                <p>Street: {res.street}</p>
-                                <p>Street number: {res.streetNumber}</p>
-                                <p>Zipcode: {res.zipcode}</p>
-                                <p>City: {res.city}</p>
-                                <p>Amount: {res.amount}</p>
-                                <p>Comment: {res.comment}</p>
-                                <p>ProductId: {res.productId}</p>
-                            </div>))}
 
-                    <form onSubmit={handleSubmit}>
-                        <select
-                            name="productId"
-                            onChange={handleInputChange}>
-                            <option value="">Select a Reservation</option>
-                            {reservation &&
-                                reservation.map((reserve) => {
-                                    return (
-                                        <option
-                                            key={reserve.id}
-                                            value={reserve.id}>{reserve.fullName}</option>)
-                                })}
-                        </select>
+                            <div className={style.header}></div>
+                            <div className={style.container}>
+                                {reservation.map((res) => (
+                                    <div className={style.entry} key={res.id}>
+                                        <p>Full name: {res.fullName}</p>
+                                        <p>Email: {res.email}</p>
+                                        <p>Street: {res.street}</p>
+                                        <p>Street number: {res.streetNumber}</p>
+                                        <p>Zipcode: {res.zipcode}</p>
+                                        <p>City: {res.city}</p>
+                                        <p>Amount: {res.amount}</p>
+                                        <p>Comment: {res.comment}</p>
+                                        <p>ProductId: {res.productId}</p>
+                                    </div>))}
 
-                        <Button
-                            type="submit"
-                            text="Delete Reservation"/>
+                                <p>Delete Reservation</p>
+                                <Dropdown
+                                    onSubmit={handleSubmit}
+                                   onChange={handleInputChange}
+                                    input={"Select a reservation"}
+                                    state={reservation}
+                                    value="fullName"
+                                    btn_type={"submit"}
+                                    btn_text={"Delete reservation"}
+                                />
 
-                    </form>
-                    </div>
-                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+                            </div>
+
+                    {error && (
+                        <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
+                            eigenaar.</p>)}
                 </>
             }
         </>

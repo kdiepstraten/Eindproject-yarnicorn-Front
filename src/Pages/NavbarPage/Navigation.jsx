@@ -22,19 +22,19 @@ function Navigation(){
                 {!isAuthenticated && (
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/registration">Register</NavLink></li>
                 )}
-                {!isAuthenticated && (
-                <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/login">Login</NavLink></li>
-                )}
-                {isAuthenticated && (
+                {role === "ROLE_ADMIN" && (
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/profile">Profile</NavLink></li>
                 )}
-                {isAuthenticated && (
-                <li><NavLink className="default"
-                             onClick={logout}
-                             to="/">Logout</NavLink></li>
-                    )}
+                {!isAuthenticated && (
+                    <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/login">Login</NavLink></li>
+                )}
                 {role === "ROLE_ADMIN" && (
                 <li><NavLink className={({isActive}) => isActive ? 'active' : 'default'} to="/reservation-list">Reservation-list</NavLink></li>
+                )}
+                {isAuthenticated && (
+                    <li><NavLink className="default"
+                                 onClick={logout}
+                                 to="/">Logout</NavLink></li>
                 )}
                 {isAuthenticated && (<p className="welcome">Welcome: {user.username}</p>)}
             </ul>

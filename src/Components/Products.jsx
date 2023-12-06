@@ -5,19 +5,20 @@ import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {AuthContext} from "../Context/AuthContext.jsx";
 import Spinner from "./Spinner.jsx";
+import image2 from "../assets/Products/Isager eco soft grey.jpg"
 
-
-function Products({image, category}) {
+function Products({ category}) {
     const [product, setProduct] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
     const {token} = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [image, setImage] = useState('');
 
     useEffect(() => {
         void fetchProduct();
-        void fetchCategory()
+        void fetchCategory();
+        // void fetchImage();
     }, []);
 
     async function fetchProduct() {
@@ -25,12 +26,8 @@ function Products({image, category}) {
         try {
             setError(false);
             setLoading(true);
-            const response = await axios.get('http://localhost:8080/product', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${token}`
-                }
-                });
+            const response = await axios.get('http://localhost:8080/product');
+            console.log(response.data)
             setProduct(response.data);
         } catch (e) {
             console.error(e);
@@ -50,7 +47,6 @@ function Products({image, category}) {
             setLoading(true);
             const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`, {
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `${token}`
                 }
                 })
@@ -65,6 +61,24 @@ function Products({image, category}) {
         }
     }
 
+    // async function fetchImage() {
+    //     try {
+    //         setError(false);
+    //         setLoading(true);
+    //         const response = await axios.get(`http://localhost:8080/downloadFromDB/${product.name}.jpg`);
+    //         console.log(response.data)
+    //         console.log(product.name)
+    //         setImage(response.data)
+    //     } catch (e) {
+    //         console.error(e);
+    //         console.error("Error status:", e.response.status);
+    //         console.error("Error data:", e.response.data);
+    //         setError(true);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // }
+// TODO: Fix product.name. Not one product but all product names.
     return (
         <>{loading ? <Spinner/>
             :
@@ -73,7 +87,7 @@ function Products({image, category}) {
                 product.map((product) => (
                         <div className={style["products__container"]} key={product.id}>
                             <figure className={style["products__figure"]}>
-                                <img src={image} alt={product.name}/>
+                                <img src={`data:image/png;base64,${product.docFile}`} alt={product.name}/>
                             </figure>
                             <p>{product.name}</p>
                             <p>{product.blend}</p>
@@ -86,7 +100,7 @@ function Products({image, category}) {
 
                     <div className={style["products__container"]} key={category.id}>
                         <figure className={style["products__figure"]}>
-                            <img src={image} alt={category.name}/>
+                            <img src={`data:image/png;base64,${product.docFile}`} alt={category.name}/>
                         </figure>
                         <p>{category.name}</p>
                         <p>{category.blend}</p>

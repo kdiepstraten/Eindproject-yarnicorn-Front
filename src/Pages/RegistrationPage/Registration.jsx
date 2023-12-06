@@ -1,5 +1,5 @@
 import style from "./Registration.module.css"
-import NavigationHome from "../NavigationHomePage/NavigationHome.jsx";
+import NavigationHome from "../../Components/NavigationHome.jsx";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";

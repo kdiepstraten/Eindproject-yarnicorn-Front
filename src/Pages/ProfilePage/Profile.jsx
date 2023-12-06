@@ -6,6 +6,8 @@ import {useNavigate} from "react-router-dom";
 import Button from "../../Components/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 import Spinner from "../../Components/Spinner.jsx";
+import {Dropdown} from "../../Components/Dropdown.jsx";
+import ProductForm from "../../Components/ProductForm.jsx";
 
 function Profile() {
 
@@ -15,23 +17,23 @@ function Profile() {
     const {token} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
+    const [profile, setProfile] = useState([]);
+    const [profileState, setProfileState] = useState('');
+    const [change, setChange] = useState('');
+    const [oneProduct, setOneProduct] = useState([]);
 
     useEffect(() => {
         void fetchProduct();
+        void fetchProfile();
     }, []);
 
+    // Get products
     async function fetchProduct() {
         const token = localStorage.getItem("token")
         setError(false);
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8080/product', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `${token}`
-                }
-            });
+            const response = await axios.get('http://localhost:8080/product');
             setProduct(response.data);
         } catch (e) {
             console.error(e);
@@ -43,6 +45,7 @@ function Profile() {
         }
     }
 
+    // Delete product
     async function handleSubmit(e) {
         e.preventDefault();
         setError(false);
@@ -50,11 +53,9 @@ function Profile() {
         try {
             const response = await axios.delete(`http://localhost:8080/product/${formState}`, {
                 headers: {
-                    'Content-Type': 'application/json',
                     Authorization: `${token}`
                 }
             });
-
             await fetchProduct()
         } catch (e) {
             console.error(e);
@@ -66,10 +67,87 @@ function Profile() {
         }
     }
 
+    // Get profiles
+    async function fetchProfile() {
+        const token = localStorage.getItem("token")
+        setError(false);
+        setLoading(true);
+        try {
+            const response = await axios.get('http://localhost:8080/profile', {
+                headers: {
+                    Authorization: `${token}`
+                }
+            });
+            setProfile(response.data);
+        } catch (e) {
+            console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Delete profile
+    async function handleSubmitProfile(e) {
+        e.preventDefault();
+        setError(false);
+        setLoading(true);
+        try {
+            const response = await axios.delete(`http://localhost:8080/profile/${profileState}`, {
+                headers: {
+                    Authorization: `${token}`
+                }
+            });
+
+            await fetchProfile()
+        } catch (e) {
+            console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Change product
+    async function handleChange(e) {
+        e.preventDefault();
+        setError(false);
+        setLoading(true);
+        try {
+            const response = await axios.get(`http://localhost:8080/product/${change}`, {
+                headers: {
+                    Authorization: `${token}`
+                }
+            });
+            setOneProduct(response.data);
+        } catch (e) {
+            console.error(e);
+            console.error("Error status:", e.response.status);
+            console.error("Error data:", e.response.data);
+            setError(true);
+        } finally {
+            setLoading(false);
+        }
+    }
+
+    // Handle input change for product
     const handleInputChange = (e) => {
         setFormState(e.target.value)
     }
 
+    // Handle input change for profile
+    const handleInputChangeProfile = (e) => {
+        setProfileState(e.target.value)
+    }
+
+    // Handle change product
+    const handleProductChange = (e) => {
+        setChange(e.target.value)
+    }
 
     return (
         <>
@@ -79,35 +157,51 @@ function Profile() {
                     <Navigation/>
                     <div className={style.header}></div>
 
+                    <p>Change Product</p>
 
-                    <h3>Only available for Admin:</h3>
-                    <form onSubmit={handleSubmit}>
-                        <select
-                            name="productId"
-                            onChange={handleInputChange}>
-                            <option value="">Select a product</option>
-                            {product &&
-                                product.map((product) => {
-                                    return (
-                                        <option
-                                            key={product.id}
-                                            value={product.id}>{product.name}</option>)
-                                })}
-                        </select>
+                    <Dropdown
+                        onSubmit={handleChange}
+                        onChange={handleProductChange}
+                        input={"Select a product"}
+                        state={product}
+                        value="name"
+                        btn_type={"submit"}
+                        btn_text={"Select product"}
+                        />
+                    <ProductForm product={oneProduct}/>
 
-                        <Button
-                            type="submit"
-                            text="Delete product"/>
+                    <p>Delete a product</p>
+                    <Dropdown
+                        onSubmit={handleSubmit}
+                        onChange={handleInputChange}
+                        input={"Select a product"}
+                        state={product}
+                        value="name"
+                        btn_type={"submit"}
+                        btn_text={"Delete product"}
+                    />
 
-                    </form>
+                    <p>Delete profile</p>
+                    <Dropdown
+                        onSubmit={handleSubmitProfile}
+                        onChange={handleInputChangeProfile}
+                        input={"Select a profile"}
+                        state={profile}
+                        value="firstName"
+                        btn_type={"submit"}
+                        btn_text={"Delete profile"}
+                    />
 
-
+                    <p>List with reservations</p>
                     <Button
                         type="button"
                         text="Reserve list"
                         click={() => navigate("/reservation-list")}
                     />
-                    {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+
+                    {error && (
+                        <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
+                            eigenaar.</p>)}
                 </>}
 
         </>
