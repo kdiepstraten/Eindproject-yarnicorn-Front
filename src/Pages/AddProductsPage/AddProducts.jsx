@@ -27,7 +27,7 @@ function AddProducts() {
                     Authorization: `${token}`
                 }
             });
-            navigate("/products/leeg");
+            // navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
