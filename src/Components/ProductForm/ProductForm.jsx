@@ -1,9 +1,9 @@
-import style from '../Pages/ProfilePage/Profile.module.css'
-import Spinner from "./Spinner.jsx";
+import style from "./ProductForm.module.css";
+import Spinner from "../Spinner/Spinner.jsx";
 import {useContext, useState} from "react";
 import axios from "axios";
-import Button from "./Button.jsx";
-import {AuthContext} from "../Context/AuthContext.jsx";
+import Button from "../Button/Button.jsx";
+import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function ProductForm({product}) {
     const [data, setData] = useState({

@@ -1,0 +1,99 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+    padding: 20px;
+}
+
+.categorie:hover {
+    cursor: pointer;
+}
+
+.categorie {
+    width: 380px;
+    height: 350px;
+    border-radius: 20px;
+    border: 2px solid var(--background_home);
+    margin: 10px;
+}
+
+.sheep {
+    background-image: url("../../assets/Catagorie/Sheep/cute-lamb-grazing-enjoying-springtime-meadow-generated-by-ai.jpg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.sheep:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.alpaca {
+    background-image: url("../../assets/Catagorie/Alpaca/llama-with-fluffy-head-black-background (1).jpg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.alpaca:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.yak {
+    background-image: url("../../assets/Catagorie/Yak/animal-portrait-close-up.jpg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.yak:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.cotton {
+    background-image: url("../../assets/Catagorie/Cotton/cotton-is-vase-cotton-is-bloom (1).jpg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.cotton:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.plant {
+    background-image: url("../../assets/Catagorie/Plant/spikes-ripe-wheat-farmers-field-ai-generated-image (1).jpg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.plant:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}
+
+.exotic {
+    background-image: url("../../assets/Catagorie/Exotic/fluffy-small-mammal-with-black-fur-looking-cute-generated-by-ai.jpg");
+    background-size: cover;
+    background-position: center;
+    transform: scale(1);
+    transition: transform 1s ease-in-out;
+}
+
+.exotic:hover {
+    transform: scale(1.1);
+    transition: transform 1s ease-in-out;
+}

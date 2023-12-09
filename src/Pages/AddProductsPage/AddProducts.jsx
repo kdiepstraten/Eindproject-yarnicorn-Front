@@ -1,12 +1,12 @@
 import style from "./AddProducts.module.css"
 import {useForm} from "react-hook-form";
-import NavigationHome from "../../Components/NavigationHome.jsx";
+import NavigationHome from "../../Components/NavigationHome/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useState} from "react";
-import Button from "../../Components/Button.jsx";
+import Button from "../../Components/Button/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
 
 function AddProducts() {
 
@@ -39,7 +39,6 @@ function AddProducts() {
     }
 
     function handleImageChange(e) {
-        console.log(e.target.files[0])
         setFile(e.target.files[0])
     }
 
@@ -72,7 +71,7 @@ function AddProducts() {
                 :
                 <>
                     <div className={style.background}>
-                        <div className={style.container}>
+                        <main className={style.container}>
                             <NavigationHome/>
                             <form className={style.form}
                                   onSubmit={handleSubmit(handleFormSubmit)}>
@@ -233,7 +232,7 @@ function AddProducts() {
                                     text='Send'
                                 />
                             </div>
-                        </div>
+                        </main>
                         {error && (
                             <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op
                                 met de eigenaar.</p>)}

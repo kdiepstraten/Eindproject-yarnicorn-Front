@@ -1,0 +1,34 @@
+.input {
+    border: var(--border_input);
+    outline: var(--outline_input);
+    background-color: var(--background_input);
+    height: var(--height_input);
+    border-radius: var(--border_radius_input);
+    margin: var(--margin_input);
+    font-size: var(--font_size_input);
+    padding: var(--padding_input);
+    color: var(--text);
+    font-weight: var(--font_weight_input);
+}
+
+.input::placeholder {
+    padding-left: 10px;
+    padding-top: 2px;
+    color: var(--text);
+}
+.input:focus {
+    box-shadow: 0 0 2px 1px var(--input_focus);
+}
+
+.area {
+    height: 100px;
+    margin-bottom: 20px;
+    padding-top: 5px;
+}
+.review-box {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+}

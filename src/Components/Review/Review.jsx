@@ -1,10 +1,10 @@
 import {useContext, useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import style from "../Pages/HomePage/home.module.css";
+import style from "./Review.module.css";
 import axios from "axios";
-import Button from "./Button.jsx";
-import {AuthContext} from "../Context/AuthContext.jsx";
-import Spinner from "./Spinner.jsx";
+import Button from "../Button/Button.jsx";
+import {AuthContext} from "../../Context/AuthContext.jsx";
+import Spinner from "../Spinner/Spinner.jsx";
 
 function Review() {
     const [review, toggleReview] = useState(false);
@@ -87,7 +87,7 @@ function Review() {
                         />
 
                         <textarea
-                            className={style.input}
+                            className={`${style.input} ${style.area}`}
                             name="review"
                             id="review"
                             placeholder="Post here a review"

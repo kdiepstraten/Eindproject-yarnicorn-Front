@@ -11,7 +11,7 @@ import Reservation from "./Pages/ReservationPage/Reservation.jsx";
 import Registration from "./Pages/RegistrationPage/Registration.jsx";
 import ProductDetail from "./Pages/ProductDetailPage/ProductDetail.jsx";
 import ReservationList from "./Pages/ReservationListPage/ReservationList.jsx";
-import Footer from "./Components/Footer.jsx";
+import Footer from "./Components/Footer/Footer.jsx";
 import {useContext} from "react";
 import {AuthContext} from "./Context/AuthContext.jsx";
 

@@ -1,11 +1,11 @@
 import style from "./Registration.module.css"
-import NavigationHome from "../../Components/NavigationHome.jsx";
+import NavigationHome from "../../Components/NavigationHome/NavigationHome.jsx";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import Button from "../../Components/Button.jsx";
+import Button from "../../Components/Button/Button.jsx";
 import {useState} from "react";
-import Spinner from "../../Components/Spinner.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
 
 
 function Registration() {
@@ -38,7 +38,7 @@ function Registration() {
             {loading ? <Spinner/>
                 :
                 <div className={style.background}>
-                    <div className={style.container}>
+                    <main className={style.container}>
                         <NavigationHome/>
                         <form className={style.form}
                               onSubmit={handleSubmit(handleFormSubmit)}>
@@ -151,7 +151,7 @@ function Registration() {
                         {error && (
                             <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op
                                 met de eigenaar.</p>)}
-                    </div>
+                    </main>
                 </div>}
         </>
     )

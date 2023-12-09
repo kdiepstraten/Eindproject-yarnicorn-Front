@@ -1,4 +1,4 @@
-import style from "../Pages/HomePage/home.module.css"
+import style from "./Categories.module.css";
 import {useNavigate} from "react-router-dom";
 
 function Categories() {

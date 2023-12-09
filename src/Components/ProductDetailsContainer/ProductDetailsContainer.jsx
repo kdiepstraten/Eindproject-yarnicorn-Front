@@ -1,16 +1,15 @@
-import style from "../Pages/ProductDetailPage/ProductDetail.module.css";
+import style from "./ProductDetailsContainer.module.css";
 import {NavLink, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../Context/AuthContext.jsx";
-import Spinner from "./Spinner.jsx";
-import Button from "./Button.jsx";
+import {AuthContext} from "../../Context/AuthContext.jsx";
+import Spinner from "../Spinner/Spinner.jsx";
+import Button from "../Button/Button.jsx";
 
 
 function ProductDetailsContainer({product}) {
     const navigate = useNavigate();
     const [image, setImage] = useState('');
-    const {token} = useContext(AuthContext);
     const {isAuthenticated} = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -70,7 +69,7 @@ function ProductDetailsContainer({product}) {
                         {isAuthenticated ? (
                             <button type="button" onClick={onClick} className={style.btn}>
                                 Reserve
-                            </button>) : <h1 className={style.login}>Please login to reserve a product. <NavLink
+                            </button>) : <h1>Please login to reserve a product. <NavLink
                             className={style["link-products"]} to={"/login"}>Click here to login</NavLink></h1>}
                         <Button
                             type="button"

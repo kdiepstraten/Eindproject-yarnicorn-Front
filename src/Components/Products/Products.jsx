@@ -1,15 +1,15 @@
-import "../Pages/ProductsPage/ProductsPage.jsx"
+import "../../Pages/ProductsPage/ProductsPage.jsx"
 import {NavLink} from "react-router-dom";
-import style from "../Pages/ProductsPage/ProductsPage.module.css";
-import {useContext, useEffect, useState} from "react";
+import style from "./Products.module.css";
+import {useEffect, useState} from "react";
 import axios from "axios";
-import {AuthContext} from "../Context/AuthContext.jsx";
-import Spinner from "./Spinner.jsx";
 
-function Products({ category}) {
+import Spinner from "../Spinner/Spinner.jsx";
+
+function Products({category}) {
     const [product, setProduct] = useState([]);
     const [categoryName, setCategoryName] = useState([]);
-    const {token} = useContext(AuthContext);
+
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -37,14 +37,14 @@ function Products({ category}) {
     }
 
     // Get products by category
-    async function fetchCategory(){
+    async function fetchCategory() {
 
         try {
             setError(false);
             setLoading(true);
             const result = await axios.get(`http://localhost:8080/product/byCategory?category=${category}`)
             setCategoryName(result.data);
-        }catch (e) {
+        } catch (e) {
             console.error(e)
             console.error("Error status:", e.response.status);
             console.error("Error data:", e.response.data);
@@ -58,8 +58,8 @@ function Products({ category}) {
         <>{loading ? <Spinner/>
             :
             <>
-            {category === "leeg" ?
-                product.map((product) => (
+                {category === "leeg" ?
+                    product.map((product) => (
                         <div className={style["products__container"]} key={product.id}>
                             <figure className={style["products__figure"]}>
                                 <img src={`data:image/png;base64,${product.docFile}`} alt={product.name}/>
@@ -70,21 +70,23 @@ function Products({ category}) {
                             <NavLink className={style.link} to={`/products-detail/${product.id}`}>More info</NavLink>
                         </div>
                     ))
-            :
-                categoryName.map((category) => (
+                    :
+                    categoryName.map((category) => (
 
-                    <div className={style["products__container"]} key={category.id}>
-                        <figure className={style["products__figure"]}>
-                            <img src={`data:image/png;base64,${category.docFile}`} alt={category.name}/>
-                        </figure>
-                        <p>{category.name}</p>
-                        <p>{category.blend}</p>
-                        <p>{category.color}</p>
+                        <div className={style["products__container"]} key={category.id}>
+                            <figure className={style["products__figure"]}>
+                                <img src={`data:image/png;base64,${category.docFile}`} alt={category.name}/>
+                            </figure>
+                            <p>{category.name}</p>
+                            <p>{category.blend}</p>
+                            <p>{category.color}</p>
 
-                        <NavLink className={style.link} to={`/products-detail/${category.id}`}>More info</NavLink>
-                    </div>
-                ))}
-                {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
+                            <NavLink className={style.link} to={`/products-detail/${category.id}`}>More info</NavLink>
+                        </div>
+                    ))}
+                {error && (
+                    <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
+                        eigenaar.</p>)}
             </>}
         </>
     );

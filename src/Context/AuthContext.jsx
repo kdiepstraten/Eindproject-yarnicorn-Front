@@ -31,7 +31,7 @@ const AuthContextProvider = ({children}) => {
         void fetchData();
     }, []);
 
-    async function login(token) {
+    const login = (token)=> {
 
         localStorage.setItem('token', token);
 
