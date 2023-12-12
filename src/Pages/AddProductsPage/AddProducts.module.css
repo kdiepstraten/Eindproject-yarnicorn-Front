@@ -13,18 +13,18 @@
 .container {
     background-color: var(--background_container);
     box-shadow: 0 0 15px 0 var(--container_shadow);
-    padding: 20px 20px;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 20px;
-    margin: 20px;
+    padding: var(--padding_container);
+    width: var(--width_container);
+    max-width: var(--max_width_container);
+    border-radius: var(--border_radius_container);
+    margin: var(--margin_container);
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 40px;
+    display: var(--display_form);
+    flex-direction: var(--flex_direction_form);
+    gap: var(--gap_form);
+    margin-top: var(--margin_top_form);
 }
 
 .numbers {
@@ -34,23 +34,23 @@
 }
 
 .input {
-    border: none;
-    outline: none;
+    border: var(--border_input);
+    outline: var(--outline_input);
     background-color: var(--background_input);
-    height: 40px;
-    border-radius: .25em;
-    margin: .5em;
-    font-size: 1rem;
-    padding: .5em;
-    color: ghostwhite;
-    font-weight: lighter;
+    height: var(--height_input);
+    border-radius: var(--border_radius_input);
+    margin: var(--margin_input);
+    font-size: var(--font_size_input);
+    padding: var(--padding_input);
+    color: var(--text);
+    font-weight: var(--font_weight_input);
 }
 
 .input::placeholder {
     padding-left: 10px;
     padding-top: 5px;
     font-weight: bold;
-    color: ghostwhite;
+    color: var(--text);
 }
 .input:focus {
     box-shadow: 0 0 2px 1px var(--input_focus);

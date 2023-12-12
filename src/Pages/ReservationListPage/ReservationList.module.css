@@ -17,6 +17,9 @@
     width: 300px;
     margin: 10px 0;
 }
+.title {
+    text-decoration: underline;
+}
 .error {
     color: var(--error);
     font-size: 1.2rem;

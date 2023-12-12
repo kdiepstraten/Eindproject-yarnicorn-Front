@@ -1,0 +1,22 @@
+.products__figure {
+    width: 300px;
+    height: 400px;
+}
+
+.products__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px;
+}
+.link {
+    color: ghostwhite;
+    text-decoration: underline;
+    margin-top: 50px;
+    font-size: 18px;
+}
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
+}

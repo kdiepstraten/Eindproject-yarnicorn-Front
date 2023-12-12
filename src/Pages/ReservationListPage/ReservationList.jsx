@@ -3,8 +3,8 @@ import axios from "axios";
 import {useContext, useEffect, useState} from "react";
 import style from "./ReservationList.module.css"
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
-import Dropdown from "../../Components/Dropdown.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
+import Dropdown from "../../Components/Dropdown/Dropdown.jsx";
 
 
 function ReservationList() {
@@ -74,8 +74,8 @@ function ReservationList() {
                 <>
                     <Navigation/>
 
-                            <div className={style.header}></div>
-                            <div className={style.container}>
+                            <header className={style.header}></header>
+                            <main className={style.container}>
                                 {reservation.map((res) => (
                                     <div className={style.entry} key={res.id}>
                                         <p>Full name: {res.fullName}</p>
@@ -89,7 +89,7 @@ function ReservationList() {
                                         <p>ProductId: {res.productId}</p>
                                     </div>))}
 
-                                <p>Delete Reservation</p>
+                                <p className={style.title}>Delete Reservation</p>
                                 <Dropdown
                                     onSubmit={handleSubmit}
                                    onChange={handleInputChange}
@@ -99,9 +99,7 @@ function ReservationList() {
                                     btn_type={"submit"}
                                     btn_text={"Delete reservation"}
                                 />
-
-                            </div>
-
+                            </main>
                     {error && (
                         <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
                             eigenaar.</p>)}

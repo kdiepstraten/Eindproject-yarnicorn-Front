@@ -1,5 +1,4 @@
-import style from "../Pages/ProfilePage/Profile.module.css"
-import Button from "./Button.jsx";
+import Button from "../Button/Button.jsx";
 
 export function Dropdown({onSubmit, onChange, input, state, value, btn_type, btn_text}) {
     return (

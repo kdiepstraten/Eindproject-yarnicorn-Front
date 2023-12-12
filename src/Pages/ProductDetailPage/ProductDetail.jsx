@@ -1,10 +1,10 @@
 import style from "./ProductDetail.module.css"
 import Navigation from "../NavbarPage/Navigation.jsx";
-import ProductDetailsContainer from "../../Components/ProductDetailsContainer.jsx";
+import ProductDetailsContainer from "../../Components/ProductDetailsContainer/ProductDetailsContainer.jsx";
 import {useParams} from "react-router-dom";
 import { useEffect, useState} from "react";
 import axios from "axios";
-import Spinner from "../../Components/Spinner.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
 
 
 
@@ -31,7 +31,6 @@ function ProductDetail() {
                 }
                 });
             setProduct(response.data);
-
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -46,7 +45,7 @@ function ProductDetail() {
         <>
             {loading ? <Spinner/>
                 :
-            <div className={style.background}>
+            <main className={style.background}>
                 <Navigation/>
                 <div className={style.header}></div>
                 {Object.keys(product).length > 0 &&
@@ -55,7 +54,7 @@ function ProductDetail() {
                     />
                 }
                 {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
-            </div>}
+            </main>}
 
         </>
     )

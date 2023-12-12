@@ -3,11 +3,11 @@ import Navigation from "../NavbarPage/Navigation.jsx";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import Button from "../../Components/Button.jsx";
+import Button from "../../Components/Button/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
-import {Dropdown} from "../../Components/Dropdown.jsx";
-import ProductForm from "../../Components/ProductForm.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
+import {Dropdown} from "../../Components/Dropdown/Dropdown.jsx";
+import ProductForm from "../../Components/ProductForm/ProductForm.jsx";
 
 function Profile() {
 
@@ -29,7 +29,6 @@ function Profile() {
 
     // Get products
     async function fetchProduct() {
-        const token = localStorage.getItem("token")
         setError(false);
         setLoading(true);
         try {
@@ -155,53 +154,57 @@ function Profile() {
                 :
                 <>
                     <Navigation/>
-                    <div className={style.header}></div>
 
-                    <p>Change Product</p>
+                    <header className={style.header}></header>
 
-                    <Dropdown
-                        onSubmit={handleChange}
-                        onChange={handleProductChange}
-                        input={"Select a product"}
-                        state={product}
-                        value="name"
-                        btn_type={"submit"}
-                        btn_text={"Select product"}
+                    <main className={style.main}>
+                        <p className={style.title}>Change Product</p>
+
+                        <Dropdown
+                            onSubmit={handleChange}
+                            onChange={handleProductChange}
+                            input={"Select a product"}
+                            state={product}
+                            value="name"
+                            btn_type={"submit"}
+                            btn_text={"Select product"}
                         />
-                    <ProductForm product={oneProduct}/>
+                        <ProductForm product={oneProduct}/>
 
-                    <p>Delete a product</p>
-                    <Dropdown
-                        onSubmit={handleSubmit}
-                        onChange={handleInputChange}
-                        input={"Select a product"}
-                        state={product}
-                        value="name"
-                        btn_type={"submit"}
-                        btn_text={"Delete product"}
-                    />
+                        <p className={style.title}>Delete a product</p>
+                        <Dropdown
+                            onSubmit={handleSubmit}
+                            onChange={handleInputChange}
+                            input={"Select a product"}
+                            state={product}
+                            value="name"
+                            btn_type={"submit"}
+                            btn_text={"Delete product"}
+                        />
 
-                    <p>Delete profile</p>
-                    <Dropdown
-                        onSubmit={handleSubmitProfile}
-                        onChange={handleInputChangeProfile}
-                        input={"Select a profile"}
-                        state={profile}
-                        value="firstName"
-                        btn_type={"submit"}
-                        btn_text={"Delete profile"}
-                    />
+                        <p className={style.title}>Delete profile</p>
+                        <Dropdown
+                            onSubmit={handleSubmitProfile}
+                            onChange={handleInputChangeProfile}
+                            input={"Select a profile"}
+                            state={profile}
+                            value="firstName"
+                            btn_type={"submit"}
+                            btn_text={"Delete profile"}
+                        />
 
-                    <p>List with reservations</p>
-                    <Button
-                        type="button"
-                        text="Reserve list"
-                        click={() => navigate("/reservation-list")}
-                    />
+                        <p className={style.title}>List with reservations</p>
+                        <Button
+                            type="button"
+                            text="Reserve list"
+                            click={() => navigate("/reservation-list")}
+                        />
 
-                    {error && (
-                        <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de
-                            eigenaar.</p>)}
+                        {error && (
+                            <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op
+                                met de
+                                eigenaar.</p>)}
+                    </main>
                 </>}
 
         </>

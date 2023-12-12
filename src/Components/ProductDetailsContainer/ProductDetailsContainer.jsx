@@ -1,23 +1,22 @@
-import style from "../Pages/ProductDetailPage/ProductDetail.module.css";
+import style from "./ProductDetailsContainer.module.css";
 import {NavLink, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useEffect, useState} from "react";
-import {AuthContext} from "../Context/AuthContext.jsx";
-import Spinner from "./Spinner.jsx";
-import Button from "./Button.jsx";
+import {AuthContext} from "../../Context/AuthContext.jsx";
+import Spinner from "../Spinner/Spinner.jsx";
+import Button from "../Button/Button.jsx";
 
 
 function ProductDetailsContainer({product}) {
     const navigate = useNavigate();
     const [image, setImage] = useState('');
-    const {token} = useContext(AuthContext);
     const {isAuthenticated} = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [productDetails, setProductDetails] = useState([]);
     useEffect(() => {
 
-
+        console.log(product.name);
         async function fetchImage() {
 
             try {
@@ -25,6 +24,7 @@ function ProductDetailsContainer({product}) {
                 setLoading(true);
                 const response = await axios.get(`http://localhost:8080/downloadFromDB/${product.name}.jpg`);
                 setImage(response.data)
+
             } catch (e) {
                 console.error(e);
                 console.error("Error status:", e.response.status);
@@ -32,15 +32,17 @@ function ProductDetailsContainer({product}) {
                 setError(true);
             } finally {
                 setLoading(false);
+                setProductDetails(product);
             }
         }
+
 
         void fetchImage()
 
     }, []);
 
     function onClick() {
-        navigate("/reservation");
+        navigate("/reservation", {state: productDetails});
     }
 
     function products() {
@@ -70,7 +72,7 @@ function ProductDetailsContainer({product}) {
                         {isAuthenticated ? (
                             <button type="button" onClick={onClick} className={style.btn}>
                                 Reserve
-                            </button>) : <h1 className={style.login}>Please login to reserve a product. <NavLink
+                            </button>) : <h1>Please login to reserve a product. <NavLink
                             className={style["link-products"]} to={"/login"}>Click here to login</NavLink></h1>}
                         <Button
                             type="button"

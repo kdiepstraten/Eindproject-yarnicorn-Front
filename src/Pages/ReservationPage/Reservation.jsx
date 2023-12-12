@@ -1,20 +1,25 @@
 import style from "./Reservation.module.css"
 import {useForm} from "react-hook-form";
-import NavigationHome from "../../Components/NavigationHome.jsx";
-import {useNavigate} from "react-router-dom";
+import NavigationHome from "../../Components/NavigationHome/NavigationHome.jsx";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
-import Button from "../../Components/Button.jsx";
+import Button from "../../Components/Button/Button.jsx";
 
-import Spinner from "../../Components/Spinner.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
 import {useContext, useState} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function Reservation() {
+
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+
+    const location = useLocation();
+    const productDetails = location.state;
+
 
     async function handleFormSubmit(data) {
 
@@ -45,7 +50,7 @@ function Reservation() {
             :
             <div className={style.background}>
 
-                <div className={style.container}>
+                <main className={style.container}>
                     <NavigationHome/>
                     <form onSubmit={handleSubmit(handleFormSubmit)} className={style.form}>
 
@@ -154,6 +159,7 @@ function Reservation() {
                                     message: "Product id is required"
                                 }
                             })}
+                            defaultValue={productDetails.id}
                         />
 
 
@@ -176,7 +182,7 @@ function Reservation() {
                             />
                     </form>
                     {error && (<p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op met de eigenaar.</p>)}
-                </div>
+                </main>
 
             </div>}
         </>

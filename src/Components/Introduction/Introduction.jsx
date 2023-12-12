@@ -1,4 +1,4 @@
-import style from "../Pages/HomePage/home.module.css"
+import style from "./Introduction.module.css";
 function Introduction({image_1, alt_1, alt_2, text_1, text_2, image_2}){
     return(
         <>

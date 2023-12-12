@@ -3,6 +3,7 @@
 html {
     background: var(--background_home);
     scroll-behavior: smooth;
+    color: var(--text);
 }
 
 * {
@@ -13,6 +14,8 @@ html {
 }
 
 :root {
+
+    /*Colors*/
     --background_home: #18302E;
     --background_container: hsl(175, 33%, 14%, .7);
     --container_shadow: 0 0 15px 0 hsl(175, 33%, 14%, .7);
@@ -27,6 +30,29 @@ html {
     --shadow_btn: 0 0 2px 1px indianred;
     --border_active: 2px outset hsl(36, 100%, 70%);
     --background_active: hsl(36, 100%, 92%);
+
+    /*Input*/
+    --margin_input: 0.5em;
+    --border_radius_input: .25em;
+    --height_input: 40px;
+    --font_size_input: 1rem;
+    --padding_input: .5em;
+    --font_weight_input: lighter;
+    --border_input: none;
+    --outline_input: none;
+
+    /*Form*/
+    --display_form: flex;
+    --flex_direction_form: column;
+    --gap_form: 10px;
+    --margin_top_form: 40px;
+
+    /*Container Form*/
+    --padding_container: 20px 20px;
+    --width_container: 80%;
+    --max_width_container: 600px;
+    --border_radius_container: 20px;
+    --margin_container: 100px;
 }
 
 .app--container {
@@ -36,4 +62,9 @@ html {
     align-items: center;
     width: 100%;
     height: 100%;
+}
+.error {
+    color: var(--error);
+    font-size: 1.2rem;
+    margin-left: 5px;
 }

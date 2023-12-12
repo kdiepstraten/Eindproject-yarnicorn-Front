@@ -1,8 +1,8 @@
-import github from "../assets/icons/github (2).svg";
-import facebook from "../assets/icons/facebook (3).svg";
-import insta from "../assets/icons/instagram (2).svg";
+import github from "../../assets/icons/github (2).svg";
+import facebook from "../../assets/icons/facebook (3).svg";
+import insta from "../../assets/icons/instagram (2).svg";
 import {NavLink} from "react-router-dom";
-import style from "../Pages/HomePage/home.module.css";
+import style from "./Footer.module.css";
 
 
 function Footer(){

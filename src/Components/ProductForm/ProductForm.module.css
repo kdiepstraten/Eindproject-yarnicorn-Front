@@ -1,0 +1,21 @@
+.input {
+    border: var(--border_input);
+    outline: var(--outline_input);
+    background-color: var(--background_input);
+    height: var(--height_input);
+    border-radius: var(--border_radius_input);
+    margin: var(--margin_input);
+    font-size: var(--font_size_input);
+    padding: var(--padding_input);
+    color: var(--text);
+    font-weight: var(--font_weight_input);
+}
+.input:focus {
+    box-shadow: 0 0 2px 1px var(--input_focus)
+}
+.input::placeholder {
+    padding-left: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+    color: var(--text);
+}

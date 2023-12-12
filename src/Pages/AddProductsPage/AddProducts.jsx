@@ -1,22 +1,22 @@
 import style from "./AddProducts.module.css"
 import {useForm} from "react-hook-form";
-import NavigationHome from "../../Components/NavigationHome.jsx";
+import NavigationHome from "../../Components/NavigationHome/NavigationHome.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {useContext, useState} from "react";
-import Button from "../../Components/Button.jsx";
+import Button from "../../Components/Button/Button.jsx";
 import {AuthContext} from "../../Context/AuthContext.jsx";
-import Spinner from "../../Components/Spinner.jsx";
+import Spinner from "../../Components/Spinner/Spinner.jsx";
 
 function AddProducts() {
 
     const [file, setFile] = useState([]);
     const {register, handleSubmit} = useForm();
-    const navigate = useNavigate();
     const {token} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
     async function handleFormSubmit(data) {
         try {
             setError(false);
@@ -27,7 +27,8 @@ function AddProducts() {
                     Authorization: `${token}`
                 }
             });
-            navigate("/products/leeg");
+            setData(response.data);
+            // navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -39,14 +40,14 @@ function AddProducts() {
     }
 
     function handleImageChange(e) {
-        console.log(e.target.files[0])
         setFile(e.target.files[0])
     }
+
 
     async function handleImageSubmit() {
         const formData = new FormData();
         formData.append("file", file);
-
+        formData.append("productId", data.id);
         try {
             setError(false);
             setLoading(true);
@@ -56,6 +57,7 @@ function AddProducts() {
                     Authorization: `${token}`
                 }
             });
+            navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -72,7 +74,7 @@ function AddProducts() {
                 :
                 <>
                     <div className={style.background}>
-                        <div className={style.container}>
+                        <main className={style.container}>
                             <NavigationHome/>
                             <form className={style.form}
                                   onSubmit={handleSubmit(handleFormSubmit)}>
@@ -195,17 +197,6 @@ function AddProducts() {
                                         }
                                     })}
                                 />
-                                <input
-                                    className={style.input}
-                                    type="text"
-                                    id="url"
-                                    placeholder="Url"
-                                    {...register("fileUrl", {
-                                        required: {
-                                            value: true,
-                                            message: "Url is required"
-                                        }
-                                    })}/>
 
                                 <Button
                                     type="submit"
@@ -220,20 +211,15 @@ function AddProducts() {
                                        title=" "
                                        onChange={handleImageChange}
                                 />
-                                <input className={style.input}
-                                       id="productId"
-                                       type="text"
-                                       title="productId"
-                                       placeholder="productId"
-                                       onChange={handleImageChange}
-                                />
+
                                 <Button
                                     type='submit'
                                     click={handleImageSubmit}
                                     text='Send'
                                 />
+
                             </div>
-                        </div>
+                        </main>
                         {error && (
                             <p className={style.error}>Er is iets mis gegaan....Herlaad de pagina. Of neem contact op
                                 met de eigenaar.</p>)}

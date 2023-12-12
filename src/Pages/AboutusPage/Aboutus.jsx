@@ -9,10 +9,10 @@ function Aboutus() {
         <>
             <Navigation/>
             <div className={style.background}>
-                    <div className={style.container}>
+                    <header className={style.container}>
                         <h1>Learn more about the founder off Yarnicorn</h1>
-                    </div>
-                    <div className={style.flex}>
+                    </header>
+                    <main className={style.flex}>
                         <article className={style["text-box"]}>
                             <h1>"My Yarn Journey"</h1>
 
@@ -42,7 +42,7 @@ function Aboutus() {
                             Feel free to get in touch. We look forward to hearing from you and sharing our love for yarn
                             together!
                         </article>
-                    </div>
+                    </main>
                 </div>
 
 
