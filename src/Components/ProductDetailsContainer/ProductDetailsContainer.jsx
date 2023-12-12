@@ -13,10 +13,10 @@ function ProductDetailsContainer({product}) {
     const {isAuthenticated} = useContext(AuthContext);
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-
+    const [productDetails, setProductDetails] = useState([]);
     useEffect(() => {
 
-
+        console.log(product.name);
         async function fetchImage() {
 
             try {
@@ -24,6 +24,7 @@ function ProductDetailsContainer({product}) {
                 setLoading(true);
                 const response = await axios.get(`http://localhost:8080/downloadFromDB/${product.name}.jpg`);
                 setImage(response.data)
+
             } catch (e) {
                 console.error(e);
                 console.error("Error status:", e.response.status);
@@ -31,15 +32,17 @@ function ProductDetailsContainer({product}) {
                 setError(true);
             } finally {
                 setLoading(false);
+                setProductDetails(product);
             }
         }
+
 
         void fetchImage()
 
     }, []);
 
     function onClick() {
-        navigate("/reservation");
+        navigate("/reservation", {state: productDetails});
     }
 
     function products() {

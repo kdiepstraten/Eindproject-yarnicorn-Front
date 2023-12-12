@@ -12,11 +12,11 @@ function AddProducts() {
 
     const [file, setFile] = useState([]);
     const {register, handleSubmit} = useForm();
-    const navigate = useNavigate();
     const {token} = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
-
+    const [data, setData] = useState([]);
+    const navigate = useNavigate();
     async function handleFormSubmit(data) {
         try {
             setError(false);
@@ -27,6 +27,7 @@ function AddProducts() {
                     Authorization: `${token}`
                 }
             });
+            setData(response.data);
             // navigate("/products/leeg");
         } catch (e) {
             console.error(e);
@@ -42,10 +43,11 @@ function AddProducts() {
         setFile(e.target.files[0])
     }
 
+
     async function handleImageSubmit() {
         const formData = new FormData();
         formData.append("file", file);
-
+        formData.append("productId", data.id);
         try {
             setError(false);
             setLoading(true);
@@ -55,6 +57,7 @@ function AddProducts() {
                     Authorization: `${token}`
                 }
             });
+            navigate("/products/leeg");
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);
@@ -194,17 +197,6 @@ function AddProducts() {
                                         }
                                     })}
                                 />
-                                <input
-                                    className={style.input}
-                                    type="text"
-                                    id="url"
-                                    placeholder="Url"
-                                    {...register("fileUrl", {
-                                        required: {
-                                            value: true,
-                                            message: "Url is required"
-                                        }
-                                    })}/>
 
                                 <Button
                                     type="submit"
@@ -219,18 +211,13 @@ function AddProducts() {
                                        title=" "
                                        onChange={handleImageChange}
                                 />
-                                <input className={style.input}
-                                       id="productId"
-                                       type="text"
-                                       title="productId"
-                                       placeholder="productId"
-                                       onChange={handleImageChange}
-                                />
+
                                 <Button
                                     type='submit'
                                     click={handleImageSubmit}
                                     text='Send'
                                 />
+
                             </div>
                         </main>
                         {error && (

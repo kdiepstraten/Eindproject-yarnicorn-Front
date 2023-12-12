@@ -26,6 +26,7 @@ function Products({category}) {
             setLoading(true);
             const response = await axios.get('http://localhost:8080/product');
             setProduct(response.data);
+            console.log(response.data)
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);

@@ -38,7 +38,6 @@ function ProductForm({product}) {
                     Authorization: `${token}`
                 }
             });
-            console.log(response.data);
         } catch (e) {
             console.error(e);
             console.error("Error status:", e.response.status);

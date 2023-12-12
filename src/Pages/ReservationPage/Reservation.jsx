@@ -1,7 +1,7 @@
 import style from "./Reservation.module.css"
 import {useForm} from "react-hook-form";
 import NavigationHome from "../../Components/NavigationHome/NavigationHome.jsx";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import axios from "axios";
 import Button from "../../Components/Button/Button.jsx";
 
@@ -10,11 +10,16 @@ import {useContext, useState} from "react";
 import {AuthContext} from "../../Context/AuthContext.jsx";
 
 function Reservation() {
+
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();
     const { token } = useContext(AuthContext);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+
+    const location = useLocation();
+    const productDetails = location.state;
+
 
     async function handleFormSubmit(data) {
 
@@ -154,6 +159,7 @@ function Reservation() {
                                     message: "Product id is required"
                                 }
                             })}
+                            defaultValue={productDetails.id}
                         />
 
 
