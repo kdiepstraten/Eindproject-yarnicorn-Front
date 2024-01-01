@@ -1,5 +1,5 @@
 import Button from "../Button/Button.jsx";
-
+import PropTypes from "prop-types";
 export function Dropdown({onSubmit, onChange, input, state, value, btn_type, btn_text}) {
     return (
         <form onSubmit={(e) => onSubmit(e)}>
@@ -23,4 +23,14 @@ export function Dropdown({onSubmit, onChange, input, state, value, btn_type, btn
         </form>
     )
 }
+
+Dropdown.propTypes = {
+    onSubmit: PropTypes.func.isRequired,
+    onChange: PropTypes.func.isRequired,
+    input: PropTypes.string.isRequired,
+    state: PropTypes.array.isRequired,
+    value: PropTypes.string.isRequired,
+    btn_type: PropTypes.string.isRequired,
+    btn_text: PropTypes.string.isRequired,
+};
 export default Dropdown;
